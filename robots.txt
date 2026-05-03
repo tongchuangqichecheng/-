@@ -1,0 +1,25 @@
+# 同创汽车城 robots.txt
+# https://tongchuang-auto.com
+
+User-agent: *
+Allow: /
+
+# 禁止抓取无关参数页面
+Disallow: /search?
+Disallow: /admin/
+
+# 百度/搜狗等爬虫特定规则
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Sogou web spider
+Allow: /
+
+User-agent: 360Spider
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# 网站地图
+Sitemap: https://tongchuang-auto.com/sitemap.xml
