@@ -19,20 +19,302 @@
   }
   </script>
   <style>
-    .news-placeholder { background:var(--white); padding:48px 32px; border-radius:var(--radius-lg); box-shadow:var(--shadow); text-align:center; }
-    .news-placeholder-icon { font-size:4rem; margin-bottom:16px; color:var(--gray-300); }
-    .news-placeholder h3 { color:var(--gray-600); font-size:1.2rem; margin-bottom:8px; }
-    .news-placeholder p { color:var(--gray-400); font-size:0.95rem; }
-    .news-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:24px; }
-    .news-card { background:var(--white); border-radius:var(--radius-lg); box-shadow:var(--shadow); overflow:hidden; transition:var(--transition); }
-    .news-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); }
-    .news-card-img { width:100%; height:200px; background:linear-gradient(135deg, var(--gray-100), var(--gray-200)); display:flex; align-items:center; justify-content:center; color:var(--gray-400); font-size:3rem; }
-    .news-card-body { padding:20px; }
-    .news-card-body h4 { font-size:1.05rem; color:var(--gray-900); margin-bottom:8px; }
-    .news-card-body p { font-size:0.9rem; color:var(--gray-600); line-height:1.6; }
-    .news-card-meta { display:flex; align-items:center; gap:12px; margin-top:12px; font-size:0.8rem; color:var(--gray-400); }
-    .news-card-meta span { display:flex; align-items:center; gap:4px; }
-    @media (max-width:768px) { .news-grid { grid-template-columns:1fr; } }
+    /* ===== 照片画廊 ===== */
+    .gallery-section { background: var(--gray-100); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: var(--transition);
+      aspect-ratio: 4/3;
+      background: var(--gray-200);
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+    .gallery-item:nth-child(4) { grid-column: span 2; }
+    .gallery-item:nth-child(5) { grid-column: span 2; }
+
+    /* ===== Lightbox ===== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px; right: 30px;
+      font-size: 36px;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      z-index: 10000;
+    }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 40px;
+      color: #fff;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-nav:hover { background: rgba(255,255,255,0.3); }
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+    .lightbox-counter {
+      color: #fff;
+      margin-top: 16px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    /* ===== 视频区域 ===== */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 */
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: var(--gray-900);
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    /* ===== 文章排版 ===== */
+    .article-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 40px 48px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .article-header {
+      text-align: center;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .article-header h2 {
+      font-size: 1.6rem;
+      color: var(--gray-900);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      font-size: 0.85rem;
+      color: var(--gray-400);
+    }
+    .article-meta span { display: flex; align-items: center; gap: 4px; }
+    .article-body {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--gray-700);
+    }
+    .article-body h3 {
+      font-size: 1.15rem;
+      color: var(--gray-900);
+      margin: 28px 0 12px;
+      padding-left: 12px;
+      border-left: 4px solid #c9a227;
+    }
+    .article-body p { margin-bottom: 16px; }
+    .article-body ul {
+      margin: 12px 0 20px 24px;
+      padding-left: 8px;
+    }
+    .article-body ul li {
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .article-body ul li::marker { color: #c9a227; }
+    .article-body strong { color: var(--gray-900); }
+    .article-body blockquote {
+      margin: 20px 0;
+      padding: 16px 20px;
+      background: var(--gray-100);
+      border-left: 4px solid #c9a227;
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: var(--gray-600);
+    }
+    .article-end {
+      text-align: center;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid var(--gray-200);
+      font-size: 1.1rem;
+      color: var(--gray-900);
+      font-weight: 500;
+    }
+
+    /* ===== 评论区 ===== */
+    .comment-section {
+      max-width: 860px;
+      margin: 40px auto 0;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 32px 40px;
+    }
+    .comment-section h3 {
+      font-size: 1.2rem;
+      color: var(--gray-900);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .comment-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .comment-form input,
+    .comment-form textarea {
+      padding: 12px 16px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      background: var(--white);
+    }
+    .comment-form input:focus,
+    .comment-form textarea:focus {
+      outline: none;
+      border-color: #c9a227;
+    }
+    .comment-form textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .comment-form button {
+      align-self: flex-start;
+      padding: 10px 28px;
+      background: #c9a227;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .comment-form button:hover { background: #b08d1f; }
+    .comment-list { display: flex; flex-direction: column; gap: 16px; }
+    .comment-item {
+      padding: 16px;
+      background: var(--gray-100);
+      border-radius: 8px;
+    }
+    .comment-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .comment-author {
+      font-weight: 600;
+      color: var(--gray-900);
+      font-size: 0.95rem;
+    }
+    .comment-time {
+      font-size: 0.8rem;
+      color: var(--gray-400);
+    }
+    .comment-text {
+      font-size: 0.9rem;
+      color: var(--gray-700);
+      line-height: 1.6;
+    }
+    .comment-empty {
+      text-align: center;
+      color: var(--gray-400);
+      font-size: 0.9rem;
+      padding: 20px;
+    }
+    .comment-hint {
+      font-size: 0.8rem;
+      color: var(--gray-400);
+      margin-top: 4px;
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 992px) {
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+      .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; aspect-ratio: 4/3; }
+      .gallery-item:nth-child(4) { grid-column: span 1; }
+      .gallery-item:nth-child(5) { grid-column: span 1; }
+      .article-card { padding: 28px 32px; }
+      .comment-section { padding: 24px 28px; }
+    }
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+      .gallery-item:nth-child(4) { grid-column: span 1; }
+      .gallery-item:nth-child(5) { grid-column: span 1; }
+      .article-card { padding: 20px 24px; }
+      .article-header h2 { font-size: 1.3rem; }
+      .comment-section { padding: 20px; margin-top: 24px; }
+      .lightbox-nav { width: 40px; height: 40px; font-size: 28px; }
+      .lightbox-prev { left: 8px; }
+      .lightbox-next { right: 8px; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .gallery-item:nth-child(1) { grid-column: span 2; }
+    }
   </style>
 </head>
 <body>
@@ -67,66 +349,124 @@
     </div>
   </section>
 
-  <!-- 最新动态 -->
-  <section class="section">
+  <!-- 市场活动精彩瞬间 -->
+  <section class="section gallery-section">
     <div class="container">
       <div class="section-title fade-in">
-        <h2>最新活动</h2>
-        <p>市场活动、促销优惠、行业资讯，尽在掌握</p>
+        <h2>市场活动精彩瞬间</h2>
+        <p>同创汽车城助力高考，暖心守护每一个逐梦少年</p>
       </div>
-      <div class="news-grid fade-in">
-
-        <div class="news-card">
-          <div class="news-card-img">📸</div>
-          <div class="news-card-body">
-            <h4>市场活动精彩瞬间</h4>
-            <p>同创汽车城定期举办各类市场活动，包括新车发布会、促销活动、车展等，欢迎广大消费者前来参与。</p>
-            <div class="news-card-meta">
-              <span>📅 敬请期待</span>
-              <span>📍 同创汽车城</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="news-card">
-          <div class="news-card-img">🎬</div>
-          <div class="news-card-body">
-            <h4>市场风采视频</h4>
-            <p>记录同创汽车城日常运营、商户经营、消费者购车的真实场景，展现市场繁荣风貌。</p>
-            <div class="news-card-meta">
-              <span>📅 敬请期待</span>
-              <span>📍 同创汽车城</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="news-card">
-          <div class="news-card-img">📰</div>
-          <div class="news-card-body">
-            <h4>行业资讯与公告</h4>
-            <p>汽车市场最新政策解读、行业趋势分析、市场管理公告等重要信息发布平台。</p>
-            <div class="news-card-meta">
-              <span>📅 敬请期待</span>
-              <span>📍 同创汽车城</span>
-            </div>
-          </div>
-        </div>
-
+      <div class="gallery-grid fade-in" id="galleryGrid">
+        <div class="gallery-item" data-index="0"><img src="images/market/gaokao-1.jpg" alt="同创汽车城助力高考活动照片1" loading="lazy"></div>
+        <div class="gallery-item" data-index="1"><img src="images/market/gaokao-2.jpg" alt="同创汽车城助力高考活动照片2" loading="lazy"></div>
+        <div class="gallery-item" data-index="2"><img src="images/market/gaokao-3.jpg" alt="同创汽车城助力高考活动照片3" loading="lazy"></div>
+        <div class="gallery-item" data-index="3"><img src="images/market/gaokao-4.jpg" alt="同创汽车城助力高考活动照片4" loading="lazy"></div>
+        <div class="gallery-item" data-index="4"><img src="images/market/gaokao-5.jpg" alt="同创汽车城助力高考活动照片5" loading="lazy"></div>
+        <div class="gallery-item" data-index="5"><img src="images/market/gaokao-6.jpg" alt="同创汽车城助力高考活动照片6" loading="lazy"></div>
+        <div class="gallery-item" data-index="6"><img src="images/market/gaokao-7.jpg" alt="同创汽车城助力高考活动照片7" loading="lazy"></div>
+        <div class="gallery-item" data-index="7"><img src="images/market/gaokao-8.jpg" alt="同创汽车城助力高考活动照片8" loading="lazy"></div>
+        <div class="gallery-item" data-index="8"><img src="images/market/gaokao-9.jpg" alt="同创汽车城助力高考活动照片9" loading="lazy"></div>
+        <div class="gallery-item" data-index="9"><img src="images/market/gaokao-10.jpg" alt="同创汽车城助力高考活动照片10" loading="lazy"></div>
+        <div class="gallery-item" data-index="10"><img src="images/market/gaokao-11.jpg" alt="同创汽车城助力高考活动照片11" loading="lazy"></div>
       </div>
     </div>
   </section>
 
-  <!-- 占位提示 -->
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&#10094;</button>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">&#10095;</button>
+    <img src="" alt="" id="lightboxImg">
+    <div class="lightbox-counter" id="lightboxCounter">1 / 11</div>
+  </div>
+
+  <!-- 市场风采视频 -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>市场风采视频</h2>
+        <p>记录同创汽车城助力高考的温暖瞬间</p>
+      </div>
+      <div class="fade-in" style="max-width:900px;margin:0 auto;">
+        <div class="video-wrapper">
+          <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116713421014896&bvid=BV1qrET6AEtB&cid=38953681653&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" title="同创汽车城助力高考活动视频"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 行业资讯与公告 -->
   <section class="section" style="background:var(--gray-100);">
     <div class="container">
       <div class="section-title fade-in">
-        <h2>更多动态</h2>
-        <p>精彩内容正在筹备中</p>
+        <h2>行业资讯与公告</h2>
+        <p>汽车市场最新动态、市场管理公告等重要信息发布平台</p>
       </div>
-      <div class="news-placeholder fade-in">
-        <div class="news-placeholder-icon">🚧</div>
-        <h3>内容更新中</h3>
-        <p>市场动态板块正在持续建设中，后续将逐步添加市场活动照片、视频、文章等内容，<br>展现同创汽车城的市场风貌与蓬勃活力，敬请期待！</p>
+      <article class="article-card fade-in">
+        <div class="article-header">
+          <h2>同创护航，为梦加油 | 同创汽车城携手全体商户助力高考，暖心守护每一个逐梦少年</h2>
+          <div class="article-meta">
+            <span>&#128198; 2026年6月</span>
+            <span>&#9998; 同创汽车城</span>
+            <span>&#128172; 助力高考</span>
+          </div>
+        </div>
+        <div class="article-body">
+          <p>又是一年高考季，当万千学子怀揣梦想走进考场，用笔墨书写青春答卷时，考场外总有无数温暖的目光与守护。今年，同创汽车城携手园区内数十家汽车品牌商户，组成强大的爱心助考联盟，带着精心准备的物资与诚挚祝福，为呼和浩特的高考学子们保驾护航，用实际行动传递汽车人的责任与温情。</p>
+
+          <h3>爱心集结，同创商户共筑助考防线</h3>
+          <p>高考前夕，同创汽车城发出"助力高考"倡议，立刻得到了园区内所有汽车品牌商户的积极响应。从豪华品牌到自主品牌，从新车销售到售后维修，大家纷纷行动起来，不仅慷慨捐赠物资，更组建了爱心送考车队和考点服务站，形成一张覆盖全城主要考点的助考网络。</p>
+          <blockquote>"我们是汽车人，更是这座城市的一份子。能为寒窗苦读的学子们尽一份力，是我们义不容辞的责任。"某合资品牌4S店负责人说道，"希望我们的小小善举，能让孩子们感受到社会的温暖，轻装上阵，发挥出最佳水平。"</blockquote>
+
+          <h3>暖心物资包，细节处见真情</h3>
+          <p>本次助考行动，同创汽车城与商户们精心准备了<strong>"高考能量包"</strong>，每一份都包含：</p>
+          <ul>
+            <li><strong>定制款矿泉水</strong>：印有"金榜题名""前程似锦"等励志标语，为考生补充水分，缓解紧张情绪</li>
+            <li><strong>应急文具套装</strong>：包含中性笔、2B铅笔、橡皮、直尺等考试必备用品，解决考生忘带文具的燃眉之急</li>
+            <li><strong>清凉小风扇</strong>：应对夏日高温，为候考的学子和家长送去一丝清凉</li>
+            <li><strong>遮阳帽</strong>：遮挡烈日，让陪考家长们能更舒适地等待</li>
+            <li><strong>爱心纸巾</strong>：细节之处见关怀，应对突发情况</li>
+          </ul>
+          <p>除了物资包，同创汽车城还在各考点设立了爱心服务站，提供免费休息区、应急药品、手机充电、路况咨询等服务，为考生和家长打造一个温馨的"避风港"。</p>
+
+          <h3>爱心送考，为梦想加速度</h3>
+          <p>考虑到高考期间交通拥堵、考生可能遇到突发情况，同创汽车城组织了20余辆爱心送考车，车身统一张贴"同创助考"标识，配备经验丰富的司机师傅。</p>
+          <p>高考期间，考生凭准考证可免费乘坐爱心送考车，直达考场；同时，车队还提供"点对点"预约服务，为家离考场较远、行动不便或有特殊需求的考生提供专属接送。</p>
+          <blockquote>"我们提前一周就对送考车辆进行了全面检修，规划好了最优路线，确保考生安全、准时到达考场。"送考车队队长表示，"能护送这些未来的栋梁奔赴考场，我们感到非常荣幸。"</blockquote>
+
+          <h3>同创寄语，愿你乘风破浪</h3>
+          <p>同创汽车城总经理在活动启动仪式上说道："高考是人生的重要转折点，但不是终点。愿每一位考生都能以平常心对待，沉着冷静，发挥出自己的真实水平。同创汽车城与全体商户，为你们加油！无论结果如何，你们都是最棒的，未来的路，愿你们像汽车引擎一样，充满动力，勇往直前！"</p>
+
+          <p>园区商户们也纷纷送上祝福：</p>
+          <ul>
+            <li>"愿你笔下生风，如我们的新车一样，驰骋考场，所向披靡！"——某豪华品牌商户</li>
+            <li>"沉着审题，稳健作答，像我们的售后服务一样，细致周到，不留遗憾！"——某自主品牌售后团队</li>
+            <li>"愿你金榜题名，前程似锦，未来开上自己心仪的车，去看更广阔的世界！"——某新能源品牌商户</li>
+          </ul>
+
+          <p>十年寒窗磨一剑，今朝出鞘试锋芒。考场内，学子们执笔为剑，书写未来；考场外，同创汽车城与全体商户用心守护，为梦护航。这份温暖的接力，不仅是汽车人社会责任的体现，更是对青春梦想的致敬。</p>
+        </div>
+        <div class="article-end">
+          愿所有考生都能不负韶华，不负努力，金榜题名，前程似锦！<br>
+          同创汽车城，始终与你同行，为梦想加油！
+        </div>
+      </article>
+
+      <!-- 评论区 -->
+      <div class="comment-section fade-in">
+        <h3>&#128172; 读者评论 <span style="font-size:0.85rem;font-weight:400;color:var(--gray-400);">（本机浏览器可见）</span></h3>
+        <form class="comment-form" id="commentForm">
+          <input type="text" id="commentName" placeholder="您的昵称" maxlength="20" required>
+          <textarea id="commentText" placeholder="写下您的想法..." maxlength="500" required></textarea>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <button type="submit">发表评论</button>
+            <span class="comment-hint">评论数据保存在您的浏览器本地</span>
+          </div>
+        </form>
+        <div class="comment-list" id="commentList">
+          <div class="comment-empty">暂无评论，快来发表第一条评论吧！</div>
+        </div>
       </div>
     </div>
   </section>
@@ -177,9 +517,9 @@
         <div>
           <h4>联系我们</h4>
           <ul class="footer-contact">
-            <li><span class="icon">📞</span><span>0471-3241828</span></li>
-            <li><span class="icon">✉️</span><span>tongchuang123456@qq.com</span></li>
-            <li><span class="icon">📍</span><span>呼和浩特市回民区海拉尔西街212号</span></li>
+            <li><span class="icon">&#128222;</span><span>0471-3241828</span></li>
+            <li><span class="icon">&#9993;</span><span>tongchuang123456@qq.com</span></li>
+            <li><span class="icon">&#128205;</span><span>呼和浩特市回民区海拉尔西街212号</span></li>
           </ul>
         </div>
       </div>
@@ -189,7 +529,129 @@
     </div>
   </footer>
 
-  <button class="back-to-top" id="backToTop" aria-label="返回顶部">↑</button>
+  <button class="back-to-top" id="backToTop" aria-label="返回顶部">&#8593;</button>
   <script src="js/main.js"></script>
+  <script>
+    // ===== 照片画廊 Lightbox =====
+    (function() {
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const lightboxCounter = document.getElementById('lightboxCounter');
+      const lightboxClose = document.getElementById('lightboxClose');
+      const lightboxPrev = document.getElementById('lightboxPrev');
+      const lightboxNext = document.getElementById('lightboxNext');
+      let currentIndex = 0;
+      const total = galleryItems.length;
+
+      function openLightbox(index) {
+        currentIndex = index;
+        const img = galleryItems[index].querySelector('img');
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightboxCounter.textContent = (index + 1) + ' / ' + total;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      function prevImage() {
+        currentIndex = (currentIndex - 1 + total) % total;
+        const img = galleryItems[currentIndex].querySelector('img');
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightboxCounter.textContent = (currentIndex + 1) + ' / ' + total;
+      }
+
+      function nextImage() {
+        currentIndex = (currentIndex + 1) % total;
+        const img = galleryItems[currentIndex].querySelector('img');
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightboxCounter.textContent = (currentIndex + 1) + ' / ' + total;
+      }
+
+      galleryItems.forEach((item, index) => {
+        item.addEventListener('click', () => openLightbox(index));
+      });
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightboxPrev.addEventListener('click', function(e) { e.stopPropagation(); prevImage(); });
+      lightboxNext.addEventListener('click', function(e) { e.stopPropagation(); nextImage(); });
+      lightbox.addEventListener('click', function(e) { if(e.target === lightbox) closeLightbox(); });
+
+      document.addEventListener('keydown', function(e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevImage();
+        if (e.key === 'ArrowRight') nextImage();
+      });
+    })();
+
+    // ===== 评论区 (localStorage) =====
+    (function() {
+      const STORAGE_KEY = 'tc_comment_gaokao_2026';
+      const commentForm = document.getElementById('commentForm');
+      const commentList = document.getElementById('commentList');
+      const commentName = document.getElementById('commentName');
+      const commentText = document.getElementById('commentText');
+
+      function loadComments() {
+        try {
+          const data = localStorage.getItem(STORAGE_KEY);
+          return data ? JSON.parse(data) : [];
+        } catch(e) { return []; }
+      }
+
+      function saveComments(comments) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(comments)); } catch(e) {}
+      }
+
+      function formatTime(dateStr) {
+        const d = new Date(dateStr);
+        return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0') + ' ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+      }
+
+      function renderComments() {
+        const comments = loadComments();
+        if (comments.length === 0) {
+          commentList.innerHTML = '<div class="comment-empty">暂无评论，快来发表第一条评论吧！</div>';
+          return;
+        }
+        commentList.innerHTML = comments.map(c =>
+          '<div class="comment-item">' +
+            '<div class="comment-header">' +
+              '<span class="comment-author">' + (c.name || '匿名') + '</span>' +
+              '<span class="comment-time">' + formatTime(c.time) + '</span>' +
+            '</div>' +
+            '<div class="comment-text">' + (c.text || '').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>' +
+          '</div>'
+        ).join('');
+      }
+
+      commentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = commentName.value.trim();
+        const text = commentText.value.trim();
+        if (!name || !text) return;
+
+        const comments = loadComments();
+        comments.unshift({ name: name, text: text, time: new Date().toISOString() });
+        // 最多保留50条
+        if (comments.length > 50) comments.length = 50;
+        saveComments(comments);
+
+        commentName.value = '';
+        commentText.value = '';
+        renderComments();
+      });
+
+      renderComments();
+    })();
+  </script>
 </body>
 </html>
