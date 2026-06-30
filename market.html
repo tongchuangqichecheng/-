@@ -555,6 +555,7 @@
         <a href="merchants.html">入驻品牌</a>
         <a href="services.html">市场服务</a>
         <a href="market.html" class="active">市场动态</a>
+        <a href="comments.html">访客留言</a>
         <a href="contact.html">联系我们</a>
       </div>
       <div class="hamburger" id="hamburger">
@@ -781,6 +782,18 @@
             又是一年高考季，同创汽车城携手园区内数十家汽车品牌商户，组成爱心助考联盟，为呼和浩特的高考学子保驾护航，用实际行动传递汽车人的责任与温情。
           </div>
         </div>
+        <!-- 文章2：规范流程 强化服务 -->
+        <div class="news-list-item" onclick="showArticle('article-2')">
+          <h4>规范流程 强化服务 | 同创汽车城行政后勤管理优化升级</h4>
+          <div class="news-list-meta">
+            <span>&#128198; 2026-06-30</span>
+            <span>&#9998; 人力行政部</span>
+            <span class="tag">内部管理</span>
+          </div>
+          <div class="news-list-summary">
+            为匹配"打造一站式综合性汽车商贸服务平台"的整体发展定位，人力行政部围绕内部管理提质、服务效能升级目标，梳理优化形成标准化办公用品采购与档案归档流程。
+          </div>
+        </div>
         <!-- 后续文章模板（预留） -->
         <!--
         <div class="news-list-item" onclick="showArticle('article-2')">
@@ -853,20 +866,94 @@
         </div>
       </article>
 
-      <!-- 评论区 -->
-      <div class="comment-section fade-in">
-        <h3>&#128172; 读者评论 <span style="font-size:0.85rem;font-weight:400;color:var(--gray-400);">（本机浏览器可见）</span></h3>
-        <form class="comment-form" id="commentForm">
-          <input type="text" id="commentName" placeholder="您的昵称" maxlength="20" required>
-          <textarea id="commentText" placeholder="写下您的想法..." maxlength="500" required></textarea>
-          <div style="display:flex;align-items:center;justify-content:space-between;">
-            <button type="submit">发表评论</button>
-            <span class="comment-hint">评论数据保存在您的浏览器本地</span>
+      <!-- Giscus 评论区 - 文章1 -->
+      <div class="comment-section fade-in" style="padding:24px 28px;min-height:auto;">
+        <h3>&#128172; 读者评论 <span style="font-size:0.85rem;font-weight:400;color:var(--gray-400);">（公开可见，欢迎留言交流）</span></h3>
+        <div id="giscus-article-1"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 文章2详情：规范流程 强化服务 ==================== -->
+  <section class="section view-section" style="background:var(--gray-100);" id="view-article-2">
+    <div class="container">
+      <div class="back-bar">
+        <button class="back-btn" onclick="showSection('news-list')">&#8592; 返回文章列表</button>
+      </div>
+      <article class="article-card fade-in">
+        <div class="article-header">
+          <h2>规范流程 强化服务 | 同创汽车城行政后勤管理优化升级</h2>
+          <div class="article-meta">
+            <span>&#128198; 2026年6月30日</span>
+            <span>&#9998; 人力行政部</span>
+            <span>&#128172; 内部管理</span>
           </div>
-        </form>
-        <div class="comment-list" id="commentList">
-          <div class="comment-empty">暂无评论，快来发表第一条评论吧！</div>
         </div>
+        <div class="article-body">
+          <p>为匹配同创汽车城<strong>"打造一站式综合性汽车商贸服务平台"</strong>的整体发展定位，人力行政部围绕内部管理提质、服务效能升级目标，结合已出台的《办公用品管理制度》《档案管理制度》，梳理优化形成标准化办公用品采购与档案归档流程，以清晰规范的节点管理，凸显行政后勤<strong>"合规提效、服务赋能"</strong>的本职工作特色。</p>
+
+          <h3>办公用品采购：全链路闭环线上审批</h3>
+          <p>针对办公用品采购，本次优化搭建了<strong>全链路闭环线上审批流程</strong>，全程依托企业微信打通申请、审批、付款、报销全环节，明确每一个节点的材料要求与关联逻辑：</p>
+          <ul>
+            <li><strong>初始阶段</strong>：提交采购明细，明确需求清单与预算</li>
+            <li><strong>合同审批</strong>：规范合同审核流程，绑定对应申请单据</li>
+            <li><strong>用章审批</strong>：印章使用严格管控，确保合规性</li>
+            <li><strong>备用金申请</strong>：资金流转清晰可追溯</li>
+            <li><strong>最终报销</strong>：流程完结后自动同步财务部完成结算</li>
+          </ul>
+          <p>标准化流程既<strong>筑牢了采购管控的合规底线</strong>，杜绝了管理漏洞，又大幅压缩了审批响应时间，能够快速响应各部门办公需求，为汽车城招商、运营等核心业务的顺畅运转做好后勤支撑。</p>
+
+          <blockquote>"合规是底线，效率是追求。通过标准化流程，我们既扎紧了管理的篱笆，又为业务部门提供了更快速的后勤保障。" —— 人力行政部负责人</blockquote>
+
+          <h3>档案管理：双线归档、全程留痕</h3>
+          <p>针对档案管理，本次梳理形成<strong>"双线归档、全程留痕"</strong>的标准化归档体系，区分部门自有归档、跨部门移交归档两类场景：</p>
+
+          <div style="background:var(--gray-100);border-radius:10px;padding:20px 24px;margin:20px 0;">
+            <table style="width:100%;border-collapse:collapse;font-size:0.95rem;">
+              <thead>
+                <tr style="border-bottom:2px solid #c9a227;">
+                  <th style="padding:10px 16px;text-align:left;color:#c9a227;">归档类型</th>
+                  <th style="padding:10px 16px;text-align:left;color:#c9a227;">纸质档案要求</th>
+                  <th style="padding:10px 16px;text-align:left;color:#c9a227;">电子档案要求</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--gray-200);">
+                  <td style="padding:12px 16px;font-weight:600;">部门自有归档</td>
+                  <td style="padding:12px 16px;">分类编目、编号归档入盒</td>
+                  <td style="padding:12px 16px;">统一扫描为PDF、同步编目标注序号</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px 16px;font-weight:600;">跨部门移交归档</td>
+                  <td style="padding:12px 16px;">移交清单 + 双方签字确认</td>
+                  <td style="padding:12px 16px;">存入指定归档文件夹 + 版本管理</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>对于承载大量租赁合同、非租赁合同和其他档案的同创汽车城而言，双线归档的流程设计既保障了<strong>档案存储的安全性</strong>，避免原件丢失损毁风险，又大幅提升了档案调取效率，为汽车城<strong>业务溯源、合规运营</strong>提供了坚实支撑。</p>
+
+          <h3>核心价值：合规提效，服务赋能</h3>
+          <p>本次流程优化始终紧扣同创汽车城规模化运营的管理需求，立足行政后勤<strong>"服务业务、保障运营"</strong>的核心定位：</p>
+          <ul>
+            <li><strong>管控层面</strong>：通过标准化流程扎紧管理篱笆，杜绝违规操作空间</li>
+            <li><strong>效率层面</strong>：清晰节点设计大幅提升审批和服务效率</li>
+            <li><strong>协同层面</strong>：企业微信全链路打通，跨部门协作更加顺畅</li>
+            <li><strong>追溯层面</strong>：全程留痕，每一环节有据可查、责任可溯</li>
+          </ul>
+          <p>未来，人力行政部将继续以<strong>"合规提效、服务赋能"</strong>为工作主线，持续优化完善各项管理制度和流程，为同创汽车城持续稳健发展提供更有力的后台保障。</p>
+        </div>
+        <div class="article-end">
+          规范流程 · 强化服务 · 合规提效 · 赋能业务<br>
+          <span style="font-size:0.9rem;color:var(--gray-500);">同创汽车城人力行政部 © 2026</span>
+        </div>
+      </article>
+
+      <!-- Giscus 评论区 - 文章2 -->
+      <div class="comment-section fade-in" style="padding:24px 28px;min-height:auto;">
+        <h3>&#128172; 读者评论 <span style="font-size:0.85rem;font-weight:400;color:var(--gray-400);">（公开可见，欢迎留言交流）</span></h3>
+        <div id="giscus-article-2"></div>
       </div>
     </div>
   </section>
@@ -903,6 +990,7 @@
             <li><a href="merchants.html">入驻品牌</a></li>
             <li><a href="services.html">市场服务</a></li>
             <li><a href="market.html">市场动态</a></li>
+            <li><a href="comments.html">访客留言</a></li>
           </ul>
         </div>
         <div>
@@ -938,6 +1026,7 @@
       'video': 'video-list',
       'news': 'news-list',
       'article-1': 'article-1',
+      'article-2': 'article-2',
       'gallery-detail-1': 'gallery-detail-1',
       'video-detail-1': 'video-detail-1'
     };
@@ -952,6 +1041,10 @@
         history.replaceState(null, '', '#' + hashEntry[0]);
       } else if (name === 'home') {
         history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+      // 切换到文章视图时初始化 Giscus
+      if (name === 'article-1' || name === 'article-2') {
+        initGiscus('giscus-' + name);
       }
     }
     function showArticle(articleId) {
@@ -1026,58 +1119,46 @@
       });
     })();
 
-    // ===== 评论区 (localStorage) =====
+    // ===== Giscus 评论系统 =====
+    // 使用 specific 映射：每篇文章对应独立讨论帖（通过 data-term 区分）
+    var _giscusLoaded = {};
+    function initGiscus(containerId) {
+      if (_giscusLoaded[containerId]) return; // 避免重复加载
+      _giscusLoaded[containerId] = true;
+
+      var container = document.getElementById(containerId);
+      if (!container) return;
+
+      container.innerHTML = '<div style="text-align:center;padding:30px;color:#999;font-size:0.9rem;"><div style="width:30px;height:30px;border:3px solid #eee;border-top-color:#c9a227;border-radius:50%;animation:giscus-spin .8s linear infinite;margin:0 auto 12px;"></div>评论区加载中...</div><style>@keyframes giscus-spin{to{transform:rotate(360deg)}}</style>';
+
+      var s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.setAttribute('data-repo', 'tongchuangqichecheng/-');
+      s.setAttribute('data-repo-id', 'R_kgDOSS8EHg');
+      s.setAttribute('data-category', 'General');
+      s.setAttribute('data-category-id', 'DIC_kwDOSS8EHs4DAMyn');
+      s.setAttribute('data-mapping', 'specific');
+      s.setAttribute('data-term', containerId === 'giscus-article-1' ? 'article-gaokao-2026' : 'article-guifan-2026');
+      s.setAttribute('data-reactions-enabled', '1');
+      s.setAttribute('data-emit-metadata', '0');
+      s.setAttribute('data-input-position', 'top');
+      s.setAttribute('data-theme', 'light');
+      s.setAttribute('data-lang', 'zh-CN');
+      s.setAttribute('data-loading', 'lazy');
+
+      s.onload = function() { /* Giscus 自动渲染 */ };
+      s.onerror = function() {
+        container.innerHTML = '<div style="text-align:center;padding:24px;color:#b7950b;background:#fef9e7;border-radius:8px;font-size:0.88rem;">&#128161; 评论区初始化中，请稍后刷新重试</div>';
+      };
+
+      container.innerHTML = '';
+      container.appendChild(s);
+    }
+    // 如果页面加载时 hash 指向文章，自动初始化 Giscus
     (function() {
-      const STORAGE_KEY = 'tc_comment_gaokao_2026';
-      const commentForm = document.getElementById('commentForm');
-      const commentList = document.getElementById('commentList');
-      const commentName = document.getElementById('commentName');
-      const commentText = document.getElementById('commentText');
-
-      function loadComments() {
-        try {
-          const data = localStorage.getItem(STORAGE_KEY);
-          return data ? JSON.parse(data) : [];
-        } catch(e) { return []; }
-      }
-      function saveComments(comments) {
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(comments)); } catch(e) {}
-      }
-      function formatTime(dateStr) {
-        const d = new Date(dateStr);
-        return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0') + ' ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
-      }
-      function renderComments() {
-        const comments = loadComments();
-        if (comments.length === 0) {
-          commentList.innerHTML = '<div class="comment-empty">暂无评论，快来发表第一条评论吧！</div>';
-          return;
-        }
-        commentList.innerHTML = comments.map(c =>
-          '<div class="comment-item">' +
-            '<div class="comment-header">' +
-              '<span class="comment-author">' + (c.name || '匿名') + '</span>' +
-              '<span class="comment-time">' + formatTime(c.time) + '</span>' +
-            '</div>' +
-            '<div class="comment-text">' + (c.text || '').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>' +
-          '</div>'
-        ).join('');
-      }
-
-      commentForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const name = commentName.value.trim();
-        const text = commentText.value.trim();
-        if (!name || !text) return;
-        const comments = loadComments();
-        comments.unshift({ name: name, text: text, time: new Date().toISOString() });
-        if (comments.length > 50) comments.length = 50;
-        saveComments(comments);
-        commentName.value = '';
-        commentText.value = '';
-        renderComments();
-      });
-      renderComments();
+      var hash = window.location.hash.replace('#', '');
+      if (hash === 'article-1') initGiscus('giscus-article-1');
+      if (hash === 'article-2') initGiscus('giscus-article-2');
     })();
   </script>
 </body>
