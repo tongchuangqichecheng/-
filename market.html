@@ -350,6 +350,7 @@
       padding: 40px 48px;
       max-width: 860px;
       margin: 0 auto;
+      overflow: visible !important;
     }
     .article-header {
       text-align: center;
@@ -519,13 +520,20 @@
       min-height: 100px !important;
     }
 
-    /* iframe评论框 - 彻底放开高度 */
+    /* iframe评论框 - 超大高度彻底消除小框子 */
     .comment-iframe {
       width: 100% !important;
       border: none !important;
       display: block !important;
-      min-height: 2500px !important;  /* 默认给足够大的高度，避免"小框子" */
-      height: 2500px !important;
+      min-height: 3000px !important;
+      height: 3000px !important;
+      max-height: none !important;
+    }
+
+    /* 确保评论区容器不截断 */
+    .comment-section {
+      overflow: visible !important;
+      max-height: none !important;
     }
 
     /* ===== 视图切换 ===== */
