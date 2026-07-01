@@ -1203,7 +1203,13 @@
       } else if (name === 'home') {
         history.replaceState(null, '', window.location.pathname + window.location.search);
       }
+      // 切换到文章视图时，延迟渲染 Cusdis 评论区
+      if (name && name.startsWith('article-')) {
+        setTimeout(function() {
+          renderCusdis();
+        }, 300);
       }
+    }
     function showArticle(articleId) {
       showSection(articleId);
     }
@@ -1277,6 +1283,17 @@
     })();
 
   </script>
-  <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+  <script src="https://cusdis.com/js/cusdis.es.js"></script>
+  <script>
+    // Cusdis 手动渲染（解决视图切换时评论不显示的问题）
+    function renderCusdis() {
+      if (typeof Cusdis !== 'undefined' && typeof Cusdis.render === 'function') {
+        Cusdis.render(document.querySelectorAll('[data-host="https://cusdis.com"]'));
+      }
+    }
+    // 切换到文章视图时自动渲染评论区
+    var _origShowSection = window.showSection || showSection;
+    // 重写 showSection 以支持 Cusdis 渲染
+  </script>
 </body>
 </html>
