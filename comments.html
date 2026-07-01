@@ -72,16 +72,34 @@
     }
     #cusdis_thread {
       margin-top: 0;
+      min-height: 600px;
     }
-    /* Cusdis 样式覆盖 */
+    /* Cusdis 样式覆盖 - 放大评论框 */
     .cusdis-thread {
       font-family: inherit !important;
+      max-width: 100% !important;
+    }
+    /* 强制 Cusdis 容器撑满 */
+    #cusdis_thread iframe,
+    #cusdis_thread [id*="iframe"] {
+      min-height: 600px !important;
+      max-height: none !important;
+    }
+    .cusdis-wrapper {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 32px;
+      min-height: auto;
     }
     .cusdis-thread input,
     .cusdis-thread textarea {
       border-radius: 8px !important;
       border: 1px solid var(--gray-300) !important;
       font-size: 14px !important;
+    }
+    .cusdis-thread textarea {
+      min-height: 100px !important;
     }
     .cusdis-thread button {
       background: var(--primary-color) !important;
