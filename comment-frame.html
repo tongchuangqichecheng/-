@@ -6,14 +6,14 @@
   <title>评论区 - 同创汽车城</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+    html, body {
       background: transparent;
       padding: 24px 28px;
-      /* 关键：让body高度由内容撑开，不限制 */
       min-height: 100%;
-      display: block;
+      height: auto;
+      overflow: visible;
     }
+
     .comment-header {
       font-size: 15px;
       font-weight: 600;
@@ -28,12 +28,45 @@
       font-weight: 400;
       color: #999;
     }
+
+    /* ===== 核心：彻底放开Cusdis所有高度限制 ===== */
     #cusdis_thread {
-      min-height: 500px;
+      min-height: 600px !important;
+      max-height: none !important;
+      height: auto !important;
     }
+
+    /* Cusdis 根容器 */
     .cusdis-thread {
       font-family: inherit !important;
+      max-width: 100% !important;
+      min-height: 600px !important;
+      max-height: none !important;
+      height: auto !important;
+      overflow: visible !important;
     }
+
+    /* Cusdis 内部可能有的包装层 - 全部放开 */
+    #cusdis_thread > *,
+    #cusdis_thread > * > *,
+    .cusdis-thread > *,
+    .cusdis-inner,
+    [class*="cusdis"] {
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
+    /* 评论列表区 - 关键！这是之前"小框子"的根源 */
+    .cusdis-comment-list,
+    .cusdis-comment-list > div,
+    [class*="comment-list"],
+    [class*="commentList"] {
+      max-height: none !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    /* 输入框样式 */
     .cusdis-thread input,
     .cusdis-thread textarea {
       border-radius: 8px !important;
@@ -42,13 +75,17 @@
     }
     .cusdis-thread textarea {
       min-height: 100px !important;
+      max-height: none !important;
     }
     .cusdis-thread button {
       border-radius: 8px !important;
       font-weight: 600 !important;
     }
-    .cusdis-comment-list,
-    .cusdis-inner {
+
+    /* 如果Cusdis内部用了iframe，也要放开 */
+    #cusdis_thread iframe,
+    iframe[src*="cusdis"] {
+      min-height: 800px !important;
       max-height: none !important;
     }
   </style>
@@ -64,6 +101,7 @@
     data-page-url=""
     data-page-title=""
   ></div>
+
   <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
   <script>
     (function() {
@@ -76,22 +114,27 @@
       el.setAttribute('data-page-url', 'https://tongchuangqichecheng.github.io/market.html#' + pageId);
       el.setAttribute('data-page-title', decodeURIComponent(pageTitle));
 
-      // 定时通知父页面更新iframe高度
+      // 通知父页面更新iframe高度
       function sendHeight() {
-        var h = document.body.scrollHeight || document.documentElement.scrollHeight;
+        var h = Math.max(
+          document.body.scrollHeight,
+          document.documentElement.scrollHeight,
+          document.body.offsetHeight,
+          2000  // 最小保证高度
+        );
         if (window.parent && window.parent.postMessage) {
           window.parent.postMessage({ type: 'resize', height: h }, '*');
         }
       }
 
-      // 多次发送确保覆盖到完整高度
+      // 多时机发送
       setTimeout(sendHeight, 500);
-      setTimeout(sendHeight, 1500);
-      setTimeout(sendHeight, 3000);
+      setTimeout(sendHeight, 1000);
+      setTimeout(sendHeight, 2000);
+      setTimeout(sendHeight, 3500);
+      setTimeout(sendHeight, 5000);
 
-      // Cusdis加载完成后也发一次
-      var _origLoad = null;
-      // 监听Cusdis渲染完成
+      // 监听DOM变化（Cusdis动态插入内容）
       var observer = new MutationObserver(function() {
         sendHeight();
       });
