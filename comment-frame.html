@@ -8,14 +8,14 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
-      background: #fafbfc;
-      padding: 16px;
+      background: transparent;
+      padding: 20px 24px;
     }
     .comment-header {
       font-size: 15px;
       font-weight: 600;
       color: #333;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -25,9 +25,30 @@
       font-weight: 400;
       color: #999;
     }
-    /* 让Cusdis自适应撑开 */
+    /* Cusdis 样式放大 */
     #cusdis_thread {
-      min-height: 300px;
+      min-height: 400px;
+    }
+    .cusdis-thread {
+      font-family: inherit !important;
+    }
+    .cusdis-thread input,
+    .cusdis-thread textarea {
+      border-radius: 8px !important;
+      border: 1px solid #ddd !important;
+      font-size: 14px !important;
+    }
+    .cusdis-thread textarea {
+      min-height: 100px !important;
+    }
+    .cusdis-thread button {
+      border-radius: 8px !important;
+      font-weight: 600 !important;
+    }
+    /* 评论列表区域不限制高度，自然撑开 */
+    .cusdis-comment-list,
+    .cusdis-inner {
+      max-height: none !important;
     }
   </style>
 </head>
@@ -49,7 +70,7 @@
       var params = new URLSearchParams(window.location.search);
       var pageId = params.get('page_id') || 'default';
       var pageTitle = params.get('title') || '同创汽车城';
-      
+
       var el = document.getElementById('cusdis_thread');
       el.setAttribute('data-page-id', pageId);
       el.setAttribute('data-page-url', 'https://tongchuangqichecheng.github.io/market.html#' + pageId);
