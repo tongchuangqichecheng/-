@@ -866,10 +866,16 @@
         </div>
       </article>
 
-      <!-- Giscus 评论区 - 文章1 -->
+      <!-- Cusdis 评论区 - 文章1 -->
       <div class="comment-section fade-in" style="padding:24px 28px;min-height:auto;">
-        <h3>&#128172; 读者评论 <span style="font-size:0.85rem;font-weight:400;color:var(--gray-400);">（公开可见，欢迎留言交流）</span></h3>
-        <div id="giscus-article-1"></div>
+        <h3>&#128172; 读者评论 <span style="font-size:0.85rem;font-weight:400;color:var(--gray-400);">（无需登录，填写昵称即可留言）</span></h3>
+        <div id="cusdis_thread_article1"
+          data-host="https://cusdis.com"
+          data-app-id="baa6efd7-a340-4fbb-a5fe-b66ffebacd3b"
+          data-page-id="article-1"
+          data-page-url="https://tongchuangqichecheng.github.io/market.html#article-1"
+          data-page-title="同创护航，为梦加油 | 同创汽车城助力高考"
+        ></div>
       </div>
     </div>
   </section>
@@ -950,10 +956,16 @@
         </div>
       </article>
 
-      <!-- Giscus 评论区 - 文章2 -->
+      <!-- Cusdis 评论区 - 文章2 -->
       <div class="comment-section fade-in" style="padding:24px 28px;min-height:auto;">
-        <h3>&#128172; 读者评论 <span style="font-size:0.85rem;font-weight:400;color:var(--gray-400);">（公开可见，欢迎留言交流）</span></h3>
-        <div id="giscus-article-2"></div>
+        <h3>&#128172; 读者评论 <span style="font-size:0.85rem;font-weight:400;color:var(--gray-400);">（无需登录，填写昵称即可留言）</span></h3>
+        <div id="cusdis_thread_article2"
+          data-host="https://cusdis.com"
+          data-app-id="baa6efd7-a340-4fbb-a5fe-b66ffebacd3b"
+          data-page-id="article-2"
+          data-page-url="https://tongchuangqichecheng.github.io/market.html#article-2"
+          data-page-title="规范流程 强化服务 | 同创汽车城行政后勤管理优化升级"
+        ></div>
       </div>
     </div>
   </section>
@@ -1042,11 +1054,7 @@
       } else if (name === 'home') {
         history.replaceState(null, '', window.location.pathname + window.location.search);
       }
-      // 切换到文章视图时初始化 Giscus
-      if (name === 'article-1' || name === 'article-2') {
-        initGiscus('giscus-' + name);
       }
-    }
     function showArticle(articleId) {
       showSection(articleId);
     }
@@ -1119,47 +1127,7 @@
       });
     })();
 
-    // ===== Giscus 评论系统 =====
-    // 使用 specific 映射：每篇文章对应独立讨论帖（通过 data-term 区分）
-    var _giscusLoaded = {};
-    function initGiscus(containerId) {
-      if (_giscusLoaded[containerId]) return; // 避免重复加载
-      _giscusLoaded[containerId] = true;
-
-      var container = document.getElementById(containerId);
-      if (!container) return;
-
-      container.innerHTML = '<div style="text-align:center;padding:30px;color:#999;font-size:0.9rem;"><div style="width:30px;height:30px;border:3px solid #eee;border-top-color:#c9a227;border-radius:50%;animation:giscus-spin .8s linear infinite;margin:0 auto 12px;"></div>评论区加载中...</div><style>@keyframes giscus-spin{to{transform:rotate(360deg)}}</style>';
-
-      var s = document.createElement('script');
-      s.src = 'https://giscus.app/client.js';
-      s.setAttribute('data-repo', 'tongchuangqichecheng/-');
-      s.setAttribute('data-repo-id', 'R_kgDOSS8EHg');
-      s.setAttribute('data-category', 'General');
-      s.setAttribute('data-category-id', 'DIC_kwDOSS8EHs4DAMyn');
-      s.setAttribute('data-mapping', 'specific');
-      s.setAttribute('data-term', containerId === 'giscus-article-1' ? 'article-gaokao-2026' : 'article-guifan-2026');
-      s.setAttribute('data-reactions-enabled', '1');
-      s.setAttribute('data-emit-metadata', '0');
-      s.setAttribute('data-input-position', 'top');
-      s.setAttribute('data-theme', 'light');
-      s.setAttribute('data-lang', 'zh-CN');
-      s.setAttribute('data-loading', 'lazy');
-
-      s.onload = function() { /* Giscus 自动渲染 */ };
-      s.onerror = function() {
-        container.innerHTML = '<div style="text-align:center;padding:24px;color:#b7950b;background:#fef9e7;border-radius:8px;font-size:0.88rem;">&#128161; 评论区初始化中，请稍后刷新重试</div>';
-      };
-
-      container.innerHTML = '';
-      container.appendChild(s);
-    }
-    // 如果页面加载时 hash 指向文章，自动初始化 Giscus
-    (function() {
-      var hash = window.location.hash.replace('#', '');
-      if (hash === 'article-1') initGiscus('giscus-article-1');
-      if (hash === 'article-2') initGiscus('giscus-article-2');
-    })();
   </script>
+  <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 </body>
 </html>
