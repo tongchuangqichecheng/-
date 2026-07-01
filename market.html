@@ -925,16 +925,10 @@
         </div>
       </article>
 
-      <!-- Cusdis 评论区 - 文章1 -->
+      <!-- Cusdis 评论区 - 文章1（动态加载） -->
       <div class="comment-section fade-in" style="padding:24px 28px;min-height:auto;">
         <h3>&#128172; 读者评论 <span style="font-size:0.85rem;font-weight:400;color:var(--gray-400);">（无需登录，填写昵称即可留言）</span></h3>
-        <div id="cusdis_thread_article1"
-          data-host="https://cusdis.com"
-          data-app-id="baa6efd7-a340-4fbb-a5fe-b66ffebacd3b"
-          data-page-id="article-1"
-          data-page-url="https://tongchuangqichecheng.github.io/market.html#article-1"
-          data-page-title="同创护航，为梦加油 | 同创汽车城助力高考"
-        ></div>
+        <div id="cusdis-placeholder-1"></div>
       </div>
     </div>
   </section>
@@ -1015,16 +1009,10 @@
         </div>
       </article>
 
-      <!-- Cusdis 评论区 - 文章2 -->
+      <!-- Cusdis 评论区 - 文章2（动态加载） -->
       <div class="comment-section fade-in" style="padding:24px 28px;min-height:auto;">
         <h3>&#128172; 读者评论 <span style="font-size:0.85rem;font-weight:400;color:var(--gray-400);">（无需登录，填写昵称即可留言）</span></h3>
-        <div id="cusdis_thread_article2"
-          data-host="https://cusdis.com"
-          data-app-id="baa6efd7-a340-4fbb-a5fe-b66ffebacd3b"
-          data-page-id="article-2"
-          data-page-url="https://tongchuangqichecheng.github.io/market.html#article-2"
-          data-page-title="规范流程 强化服务 | 同创汽车城行政后勤管理优化升级"
-        ></div>
+        <div id="cusdis-placeholder-2"></div>
       </div>
     </div>
   </section>
@@ -1072,13 +1060,7 @@
       <!-- Cusdis 评论区 - 文章3 -->
       <div class="comment-section fade-in" style="padding:24px 28px;min-height:auto;">
         <h3>&#128172; 读者评论 <span style="font-size:0.85rem;font-weight:400;color:var(--gray-400);">（无需登录，填写昵称即可留言）</span></h3>
-        <div id="cusdis_thread_article3"
-          data-host="https://cusdis.com"
-          data-app-id="baa6efd7-a340-4fbb-a5fe-b66ffebacd3b"
-          data-page-id="article-3"
-          data-page-url="https://tongchuangqichecheng.github.io/market.html#article-3"
-          data-page-title="赓续北疆红色血脉 践行初心使命——同创党支部开展建党105周年红色研学主题党日活动"
-        ></div>
+        <div id="cusdis-placeholder-3"></div>
       </div>
     </div>
   </section>
@@ -1138,16 +1120,10 @@
         </div>
       </article>
 
-      <!-- Cusdis 评论区 - 文章4 -->
+      <!-- Cusdis 评论区 - 文章4（动态加载） -->
       <div class="comment-section fade-in" style="padding:24px 28px;min-height:auto;">
         <h3>&#128172; 读者评论 <span style="font-size:0.85rem;font-weight:400;color:var(--gray-400);">（无需登录，填写昵称即可留言）</span></h3>
-        <div id="cusdis_thread_article4"
-          data-host="https://cusdis.com"
-          data-app-id="baa6efd7-a340-4fbb-a5fe-b66ffebacd3b"
-          data-page-id="article-4"
-          data-page-url="https://tongchuangqichecheng.github.io/market.html#article-4"
-          data-page-title="立足本职守底线 精细服务显担当 | 同创汽车城物业部工作纪实"
-        ></div>
+        <div id="cusdis-placeholder-4"></div>
       </div>
     </div>
   </section>
@@ -1239,17 +1215,9 @@
       } else if (name === 'home') {
         history.replaceState(null, '', window.location.pathname + window.location.search);
       }
-      // 切换到文章视图时，延迟渲染当前文章的 Cusdis 评论区
+      // 切换到文章视图时，动态加载 Cusdis 评论区
       if (name && name.startsWith('article-')) {
-        setTimeout(function() {
-          var section = document.getElementById('view-' + name);
-          if (section) {
-            var el = section.querySelector('[data-host="https://cusdis.com"]');
-            if (el && typeof Cusdis !== 'undefined' && Cusdis.render) {
-              Cusdis.render(el);
-            }
-          }
-        }, 500);
+        loadCusdis(name);
       }
     }
     function showArticle(articleId) {
@@ -1325,21 +1293,62 @@
     })();
 
   </script>
-  <script src="https://cusdis.com/js/cusdis.es.js"></script>
   <script>
-    // 页面加载时如果 hash 指向文章，自动渲染该文章的评论区
+    // ===== Cusdis 动态加载（彻底解决隐藏容器渲染失败问题）=====
+    // 每篇文章的 Cusdis 配置
+    var CUSDIS_CONFIG = {
+      'article-1': { pageId: 'article-1', pageUrl: 'https://tongchuangqichecheng.github.io/market.html#article-1', pageTitle: '同创护航，为梦加油 | 同创汽车城助力高考' },
+      'article-2': { pageId: 'article-2', pageUrl: 'https://tongchuangqichecheng.github.io/market.html#article-2', pageTitle: '规范流程 强化服务 | 同创汽车城行政后勤管理优化升级' },
+      'article-3': { pageId: 'article-3', pageUrl: 'https://tongchuangqichecheng.github.io/market.html#article-3', pageTitle: '赓续北疆红色血脉 践行初心使命 | 同创党支部开展建党105周年红色研学主题党日活动' },
+      'article-4': { pageId: 'article-4', pageUrl: 'https://tongchuangqichecheng.github.io/market.html#article-4', pageTitle: '立足本职守底线 精细服务显担当 | 同创汽车城物业部工作纪实' }
+    };
+    var _cusdisLoaded = {}; // 记录哪些文章已加载过
+
+    function loadCusdis(articleId) {
+      if (_cusdisLoaded[articleId]) return; // 已加载则跳过
+      _cusdisLoaded[articleId] = true;
+
+      var config = CUSDIS_CONFIG[articleId];
+      if (!config) return;
+
+      var placeholder = document.getElementById('cusdis-placeholder-' + articleId.replace('article-', ''));
+      if (!placeholder) return;
+
+      // 显示加载提示
+      placeholder.innerHTML = '<div style="text-align:center;padding:40px;color:#999;"><div style="display:inline-block;width:28px;height:28px;border:3px solid #eee;border-top-color:#c9a227;border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:12px;"></div><br>评论区加载中...</div><style>@keyframes spin{to{transform:rotate(360deg)}}</style>';
+
+      // 动态创建 Cusdis 容器
+      var div = document.createElement('div');
+      div.setAttribute('id', 'cusdis_thread_' + articleId);
+      div.setAttribute('data-host', 'https://cusdis.com');
+      div.setAttribute('data-app-id', 'baa6efd7-a340-4fbb-a5fe-b66ffebacd3b');
+      div.setAttribute('data-page-id', config.pageId);
+      div.setAttribute('data-page-url', config.pageUrl);
+      div.setAttribute('data-page-title', config.pageTitle);
+      placeholder.appendChild(div);
+
+      // 动态加载 Cusdis 脚本（每次都重新加载，确保在可见状态下初始化）
+      var s = document.createElement('script');
+      s.src = 'https://cusdis.com/js/cusdis.es.js';
+      s.onload = function() {
+        placeholder.innerHTML = ''; // 清除加载提示
+        placeholder.appendChild(div); // 重新挂载
+        // 再次触发脚本加载
+        var s2 = document.createElement('script');
+        s2.src = 'https://cusdis.com/js/cusdis.es.js';
+        placeholder.appendChild(s2);
+      };
+      s.onerror = function() {
+        placeholder.innerHTML = '<div style="text-align:center;padding:24px;color:#b7950b;background:#fef9e7;border-radius:8px;font-size:0.88rem;">&#128161; 评论区加载失败，请刷新页面重试</div>';
+      };
+      document.body.appendChild(s);
+    }
+
+    // 页面加载时如果 hash 指向文章，自动加载评论
     (function() {
       var hash = window.location.hash.replace('#', '');
       if (hash && hash.startsWith('article-')) {
-        setTimeout(function() {
-          var section = document.getElementById('view-' + hash);
-          if (section) {
-            var el = section.querySelector('[data-host="https://cusdis.com"]');
-            if (el && typeof Cusdis !== 'undefined' && Cusdis.render) {
-              Cusdis.render(el);
-            }
-          }
-        }, 800);
+        setTimeout(function() { loadCusdis(hash); }, 600);
       }
     })();
   </script>
