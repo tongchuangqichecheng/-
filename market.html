@@ -506,6 +506,19 @@
       margin-top: 4px;
     }
 
+    /* ===== Cusdis 评论区样式覆盖 - 放大评论框 ===== */
+    [id^="cusdis_thread_"] {
+      min-height: 500px !important;
+      max-height: none !important;
+    }
+    .comment-section .cusdis-thread {
+      font-family: inherit !important;
+      max-width: 100% !important;
+    }
+    .comment-section .cusdis-thread textarea {
+      min-height: 100px !important;
+    }
+
     /* ===== 视图切换 ===== */
     .view-section { display: none; }
     .view-section.active { display: block; }
