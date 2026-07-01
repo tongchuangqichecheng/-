@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>评论区 - 同创汽车城</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #fafbfc;
+      padding: 16px;
+    }
+    .comment-header {
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .comment-hint {
+      font-size: 12px;
+      font-weight: 400;
+      color: #999;
+    }
+    /* 让Cusdis自适应撑开 */
+    #cusdis_thread {
+      min-height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="comment-header">
+    💬 读者评论 <span class="comment-hint">（无需登录，填写昵称即可留言）</span>
+  </div>
+  <div id="cusdis_thread"
+    data-host="https://cusdis.com"
+    data-app-id="baa6efd7-a340-4fbb-a5fe-b66ffebacd3b"
+    data-page-id=""
+    data-page-url=""
+    data-page-title=""
+  ></div>
+  <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+  <script>
+    // 从URL参数读取page信息
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var pageId = params.get('page_id') || 'default';
+      var pageTitle = params.get('title') || '同创汽车城';
+      
+      var el = document.getElementById('cusdis_thread');
+      el.setAttribute('data-page-id', pageId);
+      el.setAttribute('data-page-url', 'https://tongchuangqichecheng.github.io/market.html#' + pageId);
+      el.setAttribute('data-page-title', decodeURIComponent(pageTitle));
+    })();
+  </script>
+</body>
+</html>
