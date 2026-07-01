@@ -10,8 +10,7 @@
       background: transparent;
       padding: 24px 28px;
       min-height: 100%;
-      height: auto;
-      overflow: visible;
+      overflow: visible !important;
     }
 
     .comment-header {
@@ -29,44 +28,20 @@
       color: #999;
     }
 
-    /* ===== 核心：彻底放开Cusdis所有高度限制 ===== */
+    /* ===== 核心策略：用JS动态撑开，CSS只做辅助 ===== */
     #cusdis_thread {
-      min-height: 600px !important;
+      min-height: 800px !important;
       max-height: none !important;
-      height: auto !important;
     }
 
-    /* Cusdis 根容器 */
     .cusdis-thread {
       font-family: inherit !important;
       max-width: 100% !important;
-      min-height: 600px !important;
+      min-height: 800px !important;
       max-height: none !important;
       height: auto !important;
-      overflow: visible !important;
     }
 
-    /* Cusdis 内部可能有的包装层 - 全部放开 */
-    #cusdis_thread > *,
-    #cusdis_thread > * > *,
-    .cusdis-thread > *,
-    .cusdis-inner,
-    [class*="cusdis"] {
-      max-height: none !important;
-      overflow: visible !important;
-    }
-
-    /* 评论列表区 - 关键！这是之前"小框子"的根源 */
-    .cusdis-comment-list,
-    .cusdis-comment-list > div,
-    [class*="comment-list"],
-    [class*="commentList"] {
-      max-height: none !important;
-      height: auto !important;
-      overflow: visible !important;
-    }
-
-    /* 输入框样式 */
     .cusdis-thread input,
     .cusdis-thread textarea {
       border-radius: 8px !important;
@@ -75,18 +50,20 @@
     }
     .cusdis-thread textarea {
       min-height: 100px !important;
-      max-height: none !important;
     }
     .cusdis-thread button {
       border-radius: 8px !important;
       font-weight: 600 !important;
     }
 
-    /* 如果Cusdis内部用了iframe，也要放开 */
-    #cusdis_thread iframe,
-    iframe[src*="cusdis"] {
-      min-height: 800px !important;
+    /* 尝试覆盖Cusdis内部可能的高度限制 */
+    #cusdis_thread [style*="height"],
+    #cusdis_thread [style*="max-height"],
+    [class*="cusdis"] [style*="height"],
+    [class*="cusdis"] [style*="max-height"] {
       max-height: none !important;
+      height: auto !important;
+      overflow: visible !important;
     }
   </style>
 </head>
@@ -103,8 +80,10 @@
   ></div>
 
   <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
   <script>
     (function() {
+      // 1. 设置参数
       var params = new URLSearchParams(window.location.search);
       var pageId = params.get('page_id') || 'default';
       var pageTitle = params.get('title') || '同创汽车城';
@@ -114,32 +93,71 @@
       el.setAttribute('data-page-url', 'https://tongchuangqichecheng.github.io/market.html#' + pageId);
       el.setAttribute('data-page-title', decodeURIComponent(pageTitle));
 
-      // 通知父页面更新iframe高度
+      // 2. 核心功能：强制撑开所有内部元素，定时执行确保覆盖
+      function forceExpandAll() {
+        // 撑开#cusdis_thread本身
+        var ct = document.getElementById('cusdis_thread');
+        if (ct) {
+          ct.style.setProperty('min-height', '800px', 'important');
+          ct.style.setProperty('max-height', 'none', 'important');
+          ct.style.setProperty('height', 'auto', 'important');
+          ct.style.setProperty('overflow', 'visible', 'important');
+        }
+
+        // 撑开.cusdis-thread及其所有子元素
+        var allEls = document.querySelectorAll('.cusdis-thread, .cusdis-thread *, #cusdis_thread > *');
+        for (var i = 0; i < allEls.length; i++) {
+          var node = allEls[i];
+          var computedStyle = window.getComputedStyle(node);
+          // 如果这个元素有固定高度或最大高度限制
+          var h = computedStyle.maxHeight;
+          if (h && h !== 'none' && h !== '0px' && parseFloat(h) < 5000) {
+            node.style.setProperty('max-height', 'none', 'important');
+            node.style.setProperty('overflow', 'visible', 'important');
+          }
+          var oh = computedStyle.overflow;
+          if (oh === 'auto' || oh === 'scroll' || oh === 'hidden') {
+            node.style.setProperty('overflow', 'visible', 'important');
+          }
+        }
+
+        // 特别处理可能的iframe或ShadowRoot容器
+        var iframes = document.querySelectorAll('#cusdis_thread iframe, .cusdis-thread iframe');
+        for (var j = 0; j < iframes.length; j++) {
+          iframes[j].style.setProperty('min-height', '2000px', 'important');
+          iframes[j].style.setProperty('max-height', 'none', 'important');
+        }
+      }
+
+      // 3. 通知父页面更新高度
       function sendHeight() {
         var h = Math.max(
           document.body.scrollHeight,
           document.documentElement.scrollHeight,
           document.body.offsetHeight,
-          2000  // 最小保证高度
+          2000
         );
         if (window.parent && window.parent.postMessage) {
           window.parent.postMessage({ type: 'resize', height: h }, '*');
         }
       }
 
-      // 多时机发送
-      setTimeout(sendHeight, 500);
-      setTimeout(sendHeight, 1000);
-      setTimeout(sendHeight, 2000);
-      setTimeout(sendHeight, 3500);
-      setTimeout(sendHeight, 5000);
-
-      // 监听DOM变化（Cusdis动态插入内容）
-      var observer = new MutationObserver(function() {
-        sendHeight();
+      // 4. 定时执行（多次触发以确保Cusdis加载完后也能生效）
+      var intervals = [300, 600, 1000, 1500, 2000, 3000, 4000, 5000, 7000, 10000];
+      intervals.forEach(function(delay) {
+        setTimeout(function() {
+          forceExpandAll();
+          sendHeight();
+        }, delay);
       });
-      if (document.body) {
-        observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+
+      // 5. 监听DOM变化
+      if (typeof MutationObserver !== 'undefined') {
+        var observer = new MutationObserver(function() {
+          forceExpandAll();
+          sendHeight();
+        });
+        if (document.body) observer.observe(document.body, { childList: true, subtree: true, attributes: true });
       }
     })();
   </script>
