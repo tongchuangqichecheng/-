@@ -1216,11 +1216,17 @@
       } else if (name === 'home') {
         history.replaceState(null, '', window.location.pathname + window.location.search);
       }
-      // 切换到文章视图时，延迟渲染 Cusdis 评论区
+      // 切换到文章视图时，延迟渲染当前文章的 Cusdis 评论区
       if (name && name.startsWith('article-')) {
         setTimeout(function() {
-          renderCusdis();
-        }, 300);
+          var section = document.getElementById('view-' + name);
+          if (section) {
+            var el = section.querySelector('[data-host="https://cusdis.com"]');
+            if (el && typeof Cusdis !== 'undefined' && Cusdis.render) {
+              Cusdis.render(el);
+            }
+          }
+        }, 500);
       }
     }
     function showArticle(articleId) {
@@ -1298,15 +1304,21 @@
   </script>
   <script src="https://cusdis.com/js/cusdis.es.js"></script>
   <script>
-    // Cusdis 手动渲染（解决视图切换时评论不显示的问题）
-    function renderCusdis() {
-      if (typeof Cusdis !== 'undefined' && typeof Cusdis.render === 'function') {
-        Cusdis.render(document.querySelectorAll('[data-host="https://cusdis.com"]'));
+    // 页面加载时如果 hash 指向文章，自动渲染该文章的评论区
+    (function() {
+      var hash = window.location.hash.replace('#', '');
+      if (hash && hash.startsWith('article-')) {
+        setTimeout(function() {
+          var section = document.getElementById('view-' + hash);
+          if (section) {
+            var el = section.querySelector('[data-host="https://cusdis.com"]');
+            if (el && typeof Cusdis !== 'undefined' && Cusdis.render) {
+              Cusdis.render(el);
+            }
+          }
+        }, 800);
       }
-    }
-    // 切换到文章视图时自动渲染评论区
-    var _origShowSection = window.showSection || showSection;
-    // 重写 showSection 以支持 Cusdis 渲染
+    })();
   </script>
 </body>
 </html>
