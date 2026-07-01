@@ -61,48 +61,38 @@
       color: #fff;
       flex-shrink: 0;
     }
-    .giscus-wrapper {
+    .cusdis-wrapper {
       max-width: 900px;
       margin: 0 auto;
       background: var(--white);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
-      padding: 24px;
-      min-height: 300px;
+      padding: 32px;
+      min-height: 400px;
     }
-    .giscus-loading {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--gray-400);
-      font-size: 0.95rem;
+    #cusdis_thread {
+      margin-top: 0;
     }
-    .giscus-loading .spinner {
-      width: 36px; height: 36px;
-      border: 3px solid var(--gray-200);
-      border-top-color: #c9a227;
-      border-radius: 50%;
-      animation: giscus-spin 0.8s linear infinite;
-      margin: 0 auto 16px;
+    /* Cusdis 样式覆盖 */
+    .cusdis-thread {
+      font-family: inherit !important;
     }
-    @keyframes giscus-spin { to { transform: rotate(360deg); } }
-    .giscus-setup-hint {
-      max-width: 860px;
-      margin: 24px auto 0;
-      background: linear-gradient(135deg, #fef9e7, #fdf2e3);
-      border: 1px solid #f9e79f;
-      border-radius: 12px;
-      padding: 20px 28px;
-      text-align: center;
-      display: none;
+    .cusdis-thread input,
+    .cusdis-thread textarea {
+      border-radius: 8px !important;
+      border: 1px solid var(--gray-300) !important;
+      font-size: 14px !important;
     }
-    .giscus-setup-hint h4 { color: #b7950b; margin-bottom: 10px; font-size: 1rem; }
-    .giscus-setup-hint p { color: #9a7d0a; font-size: 0.88rem; line-height: 1.7; margin: 0; }
-    .giscus-setup-hint a { color: #c9a227; text-decoration: underline; font-weight: 600; }
+    .cusdis-thread button {
+      background: var(--primary-color) !important;
+      border-radius: 8px !important;
+      font-weight: 600 !important;
+    }
 
     @media (max-width: 768px) {
       .guest-features { gap: 20px; }
       .guest-feature-item { font-size: 0.85rem; }
-      .giscus-wrapper { padding: 16px 12px; }
+      .cusdis-wrapper { padding: 20px 16px; }
     }
   </style>
 </head>
@@ -142,42 +132,38 @@
   <!-- 留言说明 -->
   <section class="section" style="background:var(--white);">
     <div class="guest-intro fade-in">
-      <h2>&#128172; 欢迎来到同创汽车城访客留言板</h2>
+      <h2>💬 欢迎来到同创汽车城访客留言板</h2>
       <p>无论您是想咨询购车问题、了解市场服务、提出宝贵建议，还是想分享您在同创汽车城的体验，都欢迎在这里留言。</p>
       <p>所有留言公开可见，我们的工作人员会及时回复您的问题。</p>
       <div class="guest-features fade-in">
         <div class="guest-feature-item">
-          <div class="guest-feature-icon">&#128172;</div>
+          <div class="guest-feature-icon">💬</div>
           <span>自由发言<br>畅所欲言</span>
         </div>
         <div class="guest-feature-item">
-          <div class="guest-feature-icon">&#128279;</div>
+          <div class="guest-feature-icon">👀</div>
           <span>公开可见<br>全员可读</span>
         </div>
         <div class="guest-feature-item">
-          <div class="guest-feature-icon">&#9889;</div>
+          <div class="guest-feature-icon">⚡</div>
           <span>及时回复<br>有问必答</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Giscus 评论区域 -->
+  <!-- Cusdis 评论区域 -->
   <section class="section" style="background:var(--gray-100);padding-bottom:60px;">
     <div class="container">
-      <div class="giscus-wrapper fade-in" id="giscusWrapper">
-        <div class="giscus-loading" id="giscusLoading">
-          <div class="spinner"></div>
-          <p>评论区加载中...</p>
-        </div>
-        <div id="giscusContainer" style="display:none;"></div>
-      </div>
-
-      <!-- Giscus 未配置时的提示（隐藏，仅在Giscus无法加载时显示） -->
-      <div class="giscus-setup-hint" id="setupHint">
-        <h4>&#128161; 评论系统初始化中</h4>
-        <p>评论功能基于 GitHub Discussions 技术构建。如果评论区未正常显示，请确保已完成 Giscus 配置。<br>
-        如需帮助，请联系管理员或稍后刷新重试。</p>
+      <div class="cusdis-wrapper fade-in">
+        <div id="cusdis_thread"
+          data-host="https://cusdis.com"
+          data-app-id="baa6efd7-a340-4fbb-a5fe-b66ffebacd3b"
+          data-page-id="comments"
+          data-page-url="https://tongchuangqichecheng.github.io/comments.html"
+          data-page-title="访客留言 - 同创汽车城"
+        ></div>
+        <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
       </div>
     </div>
   </section>
@@ -229,9 +215,9 @@
         <div>
           <h4>联系我们</h4>
           <ul class="footer-contact">
-            <li><span class="icon">&#128222;</span><span>0471-3241828</span></li>
-            <li><span class="icon">&#9993;</span><span>tongchuang123456@qq.com</span></li>
-            <li><span class="icon">&#128205;</span><span>呼和浩特市回民区海拉尔西街212号</span></li>
+            <li><span class="icon">📞</span><span>0471-3241828</span></li>
+            <li><span class="icon">📧</span><span>tongchuang123456@qq.com</span></li>
+            <li><span class="icon">📍</span><span>呼和浩特市回民区海拉尔西街212号</span></li>
           </ul>
         </div>
       </div>
@@ -241,44 +227,7 @@
     </div>
   </footer>
 
-  <button class="back-to-top" id="backToTop" aria-label="返回顶部">&#8593;</button>
+  <button class="back-to-top" id="backToTop" aria-label="返回顶部">↑</button>
   <script src="js/main.js"></script>
-  <script>
-    // ===== Giscus 评论系统 =====
-    // 使用 pathname 映射：每个 URL 自动对应一个独立讨论帖
-    // 首次访问时 Giscus 会自动创建讨论帖
-    (function() {
-      const giscusScript = document.createElement('script');
-      giscusScript.src = 'https://giscus.app/client.js';
-      giscusScript.setAttribute('data-repo', 'tongchuangqichecheng/-');
-      giscusScript.setAttribute('data-repo-id', 'R_kgDOSS8EHg');
-      giscusScript.setAttribute('data-category', 'General');
-      giscusScript.setAttribute('data-category-id', 'DIC_kwDOSS8EHs4DAMyn');
-      giscusScript.setAttribute('data-mapping', 'pathname');
-      giscusScript.setAttribute('data-reactions-enabled', '1');
-      giscusScript.setAttribute('data-emit-metadata', '0');
-      giscusScript.setAttribute('data-input-position', 'top');
-      giscusScript.setAttribute('data-theme', 'light');
-      giscusScript.setAttribute('data-lang', 'zh-CN');
-      giscusScript.setAttribute('data-loading', 'lazy');
-
-      giscusScript.onload = function() {
-        // Giscus 加载成功后隐藏 loading 提示
-        setTimeout(function() {
-          var loading = document.getElementById('giscusLoading');
-          if (loading) loading.style.display = 'none';
-        }, 1000);
-      };
-
-      giscusScript.onerror = function() {
-        // Giscus 加载失败时显示提示
-        document.getElementById('giscusLoading').style.display = 'none';
-        document.getElementById('setupHint').style.display = 'block';
-      };
-
-      document.getElementById('giscusContainer').appendChild(giscusScript);
-      document.getElementById('giscusContainer').style.display = 'block';
-    })();
-  </script>
 </body>
 </html>
