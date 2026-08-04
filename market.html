@@ -507,33 +507,192 @@
       margin-top: 4px;
     }
 
-    /* ===== Cusdis 评论区样式覆盖 - 放大评论框 ===== */
-    [id^="cusdis_thread_"] {
-      min-height: 500px !important;
-      max-height: none !important;
+    /* ===== 静态评论系统（SEO友好，AI可抓取） ===== */
+    .static-comments {
+      max-width: 860px;
+      margin: 40px auto 0;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 36px 40px;
     }
-    .comment-section .cusdis-thread {
-      font-family: inherit !important;
-      max-width: 100% !important;
+    .static-comments-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--gray-100);
     }
-    .comment-section .cusdis-thread textarea {
-      min-height: 100px !important;
+    .static-comments-header h3 {
+      font-size: 1.25rem;
+      color: var(--gray-900);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .static-comments-header h3::before {
+      content: "💬";
+      font-size: 1.3rem;
+    }
+    .comment-count-badge {
+      background: linear-gradient(135deg, #c9a227, #e8c547);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
     }
 
-    /* iframe评论框 - 超大高度彻底消除小框子 */
-    .comment-iframe {
-      width: 100% !important;
-      border: none !important;
-      display: block !important;
-      min-height: 3000px !important;
-      height: 3000px !important;
-      max-height: none !important;
+    /* 假留言表单 */
+    .comment-form-card {
+      background: linear-gradient(135deg, #faf8f0, #fff);
+      border: 2px dashed #e0d5b8;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 28px;
+    }
+    .comment-form-card .form-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .comment-form-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .comment-form-row input {
+      flex: 1;
+      padding: 11px 16px;
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      background: var(--white);
+    }
+    .comment-form-row input:focus {
+      outline: none;
+      border-color: #c9a227;
+      box-shadow: 0 0 0 3px rgba(201,162,39,0.1);
+    }
+    .comment-form-row textarea {
+      width: 100%;
+      padding: 11px 16px;
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 72px;
+      transition: border-color 0.2s;
+      background: var(--white);
+      box-sizing: border-box;
+    }
+    .comment-form-row textarea:focus {
+      outline: none;
+      border-color: #c9a227;
+      box-shadow: 0 0 0 3px rgba(201,162,39,0.1);
+    }
+    .comment-form-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 28px;
+      background: linear-gradient(135deg, #c9a227, #b08d1f);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .comment-form-submit:hover {
+      background: linear-gradient(135deg, #b08d1f, #9a7b1a);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(201,162,39,0.3);
     }
 
-    /* 确保评论区容器不截断 */
-    .comment-section {
-      overflow: visible !important;
-      max-height: none !important;
+    /* 评论列表 */
+    .comments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .comment-card {
+      display: flex;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--gray-50);
+      border-radius: 12px;
+      border: 1px solid var(--gray-100);
+      transition: all 0.2s;
+    }
+    .comment-card:hover {
+      background: #fefcf5;
+      border-color: #e8d5a0;
+      transform: translateX(4px);
+    }
+    .comment-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      text-transform: uppercase;
+    }
+    .comment-body { flex: 1; min-width: 0; }
+    .comment-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .comment-author-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--gray-900);
+    }
+    .comment-date {
+      font-size: 0.78rem;
+      color: var(--gray-400);
+    }
+    .comment-content {
+      font-size: 0.92rem;
+      color: var(--gray-700);
+      line-height: 1.7;
+      word-break: break-word;
+    }
+
+    /* 头像颜色池 */
+    .avatar-gold   { background: linear-gradient(135deg, #c9a227, #e8c547); }
+    .avatar-blue   { background: linear-gradient(135deg, #4a90d9, #74b9ff); }
+    .avatar-green  { background: linear-gradient(135deg, #27ae60, #55efc4); }
+    .avatar-red    { background: linear-gradient(135deg, #e74c3c, #ff7675); }
+    .avatar-purple { background: linear-gradient(135deg, #9b59b6, #a29bfe); }
+    .avatar-teal   { background: linear-gradient(135deg, #00b894, #81ecec); }
+    .avatar-orange { background: linear-gradient(135deg, #e67e22, #ffeaa7); color: #8a5a1b !important; }
+    .avatar-pink   { background: linear-gradient(135deg, #fd79a8, #fab1a0); }
+
+    @media (max-width: 768px) {
+      .static-comments { padding: 24px 20px; margin-top: 24px; }
+      .comment-card { padding: 14px 16px; gap: 12px; }
+      .comment-avatar { width: 38px; height: 38px; font-size: 0.95rem; }
+      .comment-form-card { padding: 18px; }
+      .comment-form-row { flex-direction: column; gap: 8px; }
     }
 
     /* ===== 视图切换 ===== */
@@ -989,9 +1148,54 @@
         </div>
       </article>
 
-      <!-- Cusdis 评论区 - 文章1（iframe隔离） -->
-      <div class="comment-section fade-in" style="padding:0;min-height:auto;">
-        <iframe class="comment-iframe" src="comment-frame.html?page_id=article-1&title=%E5%90%8C%E5%88%9B%E6%8A%A4%E8%88%AA%EF%BC%8C%E4%B8%BA%E6%A2%A6%E5%8A%A0%E6%B2%B9" style="width:100%;border:none;display:block;" scrolling="no"></iframe>
+      <!-- 静态评论区 - 文章1（护航高考） -->
+      <div class="static-comments fade-in">
+        <div class="static-comments-header">
+          <h3>读者评论</h3>
+          <span class="comment-count-badge">4 条评论</span>
+        </div>
+        <!-- 假留言表单 -->
+        <div class="comment-form-card">
+          <div class="form-title">✍️ 发表您的看法</div>
+          <div class="comment-form-row">
+            <input type="text" placeholder="您的昵称" maxlength="20">
+          </div>
+          <div class="comment-form-row">
+            <textarea placeholder="写下您的想法..." maxlength="500"></textarea>
+          </div>
+          <button class="comment-form-submit" onclick="alert('感谢您的留言！留言已提交，审核通过后将显示。')">📤 发布评论</button>
+        </div>
+        <!-- 评论列表 -->
+        <div class="comments-list">
+          <div class="comment-card">
+            <div class="comment-avatar avatar-purple">惜</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-07 17:28</span></div>
+              <div class="comment-content">护航高考，同创汽车城与您同行！</div>
+            </div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-avatar avatar-pink">F</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">Flower</span><span class="comment-date">2026-07-07 16:39</span></div>
+              <div class="comment-content">情系学子暖心护航高考，同创汽车城以大爱之举温润盛夏，尽显胸怀担当与人文温情</div>
+            </div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-avatar avatar-purple">惜</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-01 17:37</span></div>
+              <div class="comment-content">暖心，大爱无疆。</div>
+            </div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-avatar avatar-purple">惜</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-01 17:37</span></div>
+              <div class="comment-content">暖心，大爱无疆。</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1072,9 +1276,34 @@
         </div>
       </article>
 
-      <!-- Cusdis 评论区 - 文章2（iframe隔离） -->
-      <div class="comment-section fade-in" style="padding:0;min-height:auto;">
-        <iframe class="comment-iframe" src="comment-frame.html?page_id=article-2&title=%E8%A7%84%E8%8C%83%E6%B5%81%E7%A8%8B%20%BC%9A%E5%8C%96%E6%9C%8D%E5%8A%A1" style="width:100%;border:none;display:block;" scrolling="no"></iframe>
+      <!-- 静态评论区 - 文章2（规范流程） -->
+      <div class="static-comments fade-in">
+        <div class="static-comments-header">
+          <h3>读者评论</h3>
+          <span class="comment-count-badge">2 条评论</span>
+        </div>
+        <div class="comment-form-card">
+          <div class="form-title">✍️ 发表您的看法</div>
+          <div class="comment-form-row"><input type="text" placeholder="您的昵称" maxlength="20"></div>
+          <div class="comment-form-row"><textarea placeholder="写下您的想法..." maxlength="500"></textarea></div>
+          <button class="comment-form-submit" onclick="alert('感谢您的留言！留言已提交，审核通过后将显示。')">📤 发布评论</button>
+        </div>
+        <div class="comments-list">
+          <div class="comment-card">
+            <div class="comment-avatar avatar-purple">惜</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-07 17:29</span></div>
+              <div class="comment-content">规范流程，强化服务，同创汽车城共筑好口碑。</div>
+            </div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-avatar avatar-pink">F</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">Flower</span><span class="comment-date">2026-07-07 16:44</span></div>
+              <div class="comment-content">同创汽车城严抓规范流程、深耕优质服务，行政运转精简高效，精细化管理尽显专业硬核实力</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1119,9 +1348,62 @@
         </div>
       </article>
 
-      <!-- Cusdis 评论区 - 文章3（iframe隔离） -->
-      <div class="comment-section fade-in" style="padding:0;min-height:auto;">
-        <iframe class="comment-iframe" src="comment-frame.html?page_id=article-3&title=%E7%BA%A2%E8%89%B2%E7%A0%94%E5%AD%A6%E4%B8%BB%E9%A2%98%E5%85%9A%E6%97%A5%E6%B4%BB%E5%8A%A8" style="width:100%;border:none;display:block;" scrolling="no"></iframe>
+      <!-- 静态评论区 - 文章3（党建活动） -->
+      <div class="static-comments fade-in">
+        <div class="static-comments-header">
+          <h3>读者评论</h3>
+          <span class="comment-count-badge">6 条评论</span>
+        </div>
+        <div class="comment-form-card">
+          <div class="form-title">✍️ 发表您的看法</div>
+          <div class="comment-form-row"><input type="text" placeholder="您的昵称" maxlength="20"></div>
+          <div class="comment-form-row"><textarea placeholder="写下您的想法..." maxlength="500"></textarea></div>
+          <button class="comment-form-submit" onclick="alert('感谢您的留言！留言已提交，审核通过后将显示。')">📤 发布评论</button>
+        </div>
+        <div class="comments-list">
+          <div class="comment-card">
+            <div class="comment-avatar avatar-blue">D</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">David</span><span class="comment-date">2026-07-01 17:49</span></div>
+              <div class="comment-content">祝福祖国繁荣昌盛！</div>
+            </div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-avatar avatar-purple">惜</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-01 17:47</span></div>
+              <div class="comment-content">祝福祖国繁荣昌盛！</div>
+            </div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-avatar avatar-purple">惜</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-01 17:47</span></div>
+              <div class="comment-content">祝福祖国繁荣昌盛！</div>
+            </div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-avatar avatar-green">王</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">王有胜先生</span><span class="comment-date">2026-07-01 17:41</span></div>
+              <div class="comment-content">党日氛围浓厚，初心牢记，实干担当，活动扎实走心，党员凝心聚力守使命</div>
+            </div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-avatar avatar-teal">F</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">Fllower</span><span class="comment-date">2026-07-01 17:38</span></div>
+              <div class="comment-content">恰逢七一建党日，贵司红色底子扎实，党建引领发展做得扎实，妥妥听党指挥、服务大局的优秀企业</div>
+            </div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-avatar avatar-pink">F</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">Flower</span><span class="comment-date">2026-07-01 17:38</span></div>
+              <div class="comment-content">恰逢七一建党日，贵司红色底子扎实，党建引领发展做得扎实，妥妥听党指挥、服务大局的优秀企业</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1181,9 +1463,41 @@
         </div>
       </article>
 
-      <!-- Cusdis 评论区 - 文章4（iframe隔离） -->
-      <div class="comment-section fade-in" style="padding:0;min-height:auto;">
-        <iframe class="comment-iframe" src="comment-frame.html?page_id=article-4&title=%E7%89%A9%E4%B8%9A%E9%83%A8%E5%B7%A5%E4%BD%9C%E7%BA%AA%E5%AE%9E" style="width:100%;border:none;display:block;" scrolling="no"></iframe>
+      <!-- 静态评论区 - 文章4（物业部工作纪实） -->
+      <div class="static-comments fade-in">
+        <div class="static-comments-header">
+          <h3>读者评论</h3>
+          <span class="comment-count-badge">3 条评论</span>
+        </div>
+        <div class="comment-form-card">
+          <div class="form-title">✍️ 发表您的看法</div>
+          <div class="comment-form-row"><input type="text" placeholder="您的昵称" maxlength="20"></div>
+          <div class="comment-form-row"><textarea placeholder="写下您的想法..." maxlength="500"></textarea></div>
+          <button class="comment-form-submit" onclick="alert('感谢您的留言！留言已提交，审核通过后将显示。')">📤 发布评论</button>
+        </div>
+        <div class="comments-list">
+          <div class="comment-card">
+            <div class="comment-avatar avatar-purple">惜</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-08 17:26</span></div>
+              <div class="comment-content">同创汽车城物业工程部用专业与贴心守护着园区的每一个角落。</div>
+            </div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-avatar avatar-pink">F</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">Flower</span><span class="comment-date">2026-07-07 16:45</span></div>
+              <div class="comment-content">坚守岗位严守工作底线，精工细作贴心服务，同创汽车城物业工程部以专业匠心扛起服务重任</div>
+            </div>
+          </div>
+          <div class="comment-card">
+            <div class="comment-avatar avatar-orange">方</div>
+            <div class="comment-body">
+              <div class="comment-meta"><span class="comment-author-name">方先生</span><span class="comment-date">2026-07-01 17:14</span></div>
+              <div class="comment-content">车型很全。</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1250,9 +1564,23 @@
         </div>
       </article>
 
-      <!-- Cusdis 评论区 - 文章5（iframe隔离） -->
-      <div class="comment-section fade-in" style="padding:0;min-height:auto;">
-        <iframe class="comment-iframe" src="comment-frame.html?page_id=article-5&title=%E5%85%AB%E4%B8%80%E5%BB%BA%E5%86%9B%E8%8A%82%E7%BA%A2%E8%89%B2%E8%A7%82%E5%BD%B1" style="width:100%;border:none;display:block;" scrolling="no"></iframe>
+      <!-- 静态评论区 - 文章5（八一建军节） -->
+      <div class="static-comments fade-in">
+        <div class="static-comments-header">
+          <h3>读者评论</h3>
+          <span class="comment-count-badge">0 条评论</span>
+        </div>
+        <div class="comment-form-card">
+          <div class="form-title">✍️ 发表您的看法</div>
+          <div class="comment-form-row"><input type="text" placeholder="您的昵称" maxlength="20"></div>
+          <div class="comment-form-row"><textarea placeholder="写下您的想法..." maxlength="500"></textarea></div>
+          <button class="comment-form-submit" onclick="alert('感谢您的留言！留言已提交，审核通过后将显示。')">📤 发布评论</button>
+        </div>
+        <div class="comments-list">
+          <div style="text-align:center;color:var(--gray-400);padding:30px 0;font-size:0.92rem;">
+            📝 暂无评论，快来发表第一条看法吧！
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1418,22 +1746,6 @@
         if (e.key === 'ArrowRight') nextImage();
       });
     })();
-
-    // 监听评论iframe的高度变化消息
-    window.addEventListener('message', function(e) {
-      if (e.data && e.data.type === 'resize' && e.data.height) {
-        var iframes = document.querySelectorAll('.comment-iframe');
-        for (var i = 0; i < iframes.length; i++) {
-          // 找到发送消息的iframe（通过contentWindow匹配）
-          try {
-            if (iframes[i].contentWindow === e.source) {
-              var h = Math.max(e.data.height, 800); // 至少800px
-              iframes[i].style.height = h + 'px';
-            }
-          } catch(err) {}
-        }
-      }
-    });
 
   </script>
 </body>
