@@ -727,6 +727,52 @@
       .gallery-item:nth-child(1) { grid-column: span 2; }
       .market-home-card { padding: 30px 20px; }
     }
+
+    /* ===== 评论分页 ===== */
+    .pagination {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 28px;
+    }
+    .pagination button {
+      min-width: 38px;
+      height: 38px;
+      padding: 0 12px;
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .pagination button:hover:not(:disabled) {
+      border-color: #c9a227;
+      color: #b08d1f;
+    }
+    .pagination button.active {
+      background: linear-gradient(135deg, #c9a227, #b08d1f);
+      color: #fff;
+      border-color: transparent;
+      font-weight: 600;
+    }
+    .pagination button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .pagination .page-ellipsis {
+      padding: 0 4px;
+      color: var(--gray-400);
+    }
+    .pagination .page-info {
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      margin: 0 8px;
+    }
   </style>
 </head>
 <body>
@@ -1166,36 +1212,11 @@
           <button class="comment-form-submit" onclick="alert('感谢您的留言！留言已提交，审核通过后将显示。')">📤 发布评论</button>
         </div>
         <!-- 评论列表 -->
-        <div class="comments-list">
-          <div class="comment-card">
-            <div class="comment-avatar avatar-purple">惜</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-07 17:28</span></div>
-              <div class="comment-content">护航高考，同创汽车城与您同行！</div>
-            </div>
-          </div>
-          <div class="comment-card">
-            <div class="comment-avatar avatar-pink">F</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">Flower</span><span class="comment-date">2026-07-07 16:39</span></div>
-              <div class="comment-content">情系学子暖心护航高考，同创汽车城以大爱之举温润盛夏，尽显胸怀担当与人文温情</div>
-            </div>
-          </div>
-          <div class="comment-card">
-            <div class="comment-avatar avatar-purple">惜</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-01 17:37</span></div>
-              <div class="comment-content">暖心，大爱无疆。</div>
-            </div>
-          </div>
-          <div class="comment-card">
-            <div class="comment-avatar avatar-purple">惜</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-01 17:37</span></div>
-              <div class="comment-content">暖心，大爱无疆。</div>
-            </div>
-          </div>
-        </div>
+        
+          <!-- 评论列表（分页渲染，共 4 条） -->
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "DiscussionForumPosting", "name": "文章1读者评论 - 同创汽车城", "comment": [{"@type": "Comment", "author": {"@type": "Person", "name": "惜情"}, "dateCreated": "2026-07-07T17:28", "text": "护航高考，同创汽车城与您同行！"}, {"@type": "Comment", "author": {"@type": "Person", "name": "Flower"}, "dateCreated": "2026-07-07T16:39", "text": "情系学子暖心护航高考，同创汽车城以大爱之举温润盛夏，尽显胸怀担当与人文温情"}, {"@type": "Comment", "author": {"@type": "Person", "name": "惜情"}, "dateCreated": "2026-07-01T17:37", "text": "暖心，大爱无疆。"}, {"@type": "Comment", "author": {"@type": "Person", "name": "惜情"}, "dateCreated": "2026-07-01T17:37", "text": "暖心，大爱无疆。"}]}</script>
+          <div class="comments-list" id="cmList-article-1"></div>
+          <div class="pagination" id="cmPager-article-1"></div>
       </div>
     </div>
   </section>
@@ -1288,22 +1309,11 @@
           <div class="comment-form-row"><textarea placeholder="写下您的想法..." maxlength="500"></textarea></div>
           <button class="comment-form-submit" onclick="alert('感谢您的留言！留言已提交，审核通过后将显示。')">📤 发布评论</button>
         </div>
-        <div class="comments-list">
-          <div class="comment-card">
-            <div class="comment-avatar avatar-purple">惜</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-07 17:29</span></div>
-              <div class="comment-content">规范流程，强化服务，同创汽车城共筑好口碑。</div>
-            </div>
-          </div>
-          <div class="comment-card">
-            <div class="comment-avatar avatar-pink">F</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">Flower</span><span class="comment-date">2026-07-07 16:44</span></div>
-              <div class="comment-content">同创汽车城严抓规范流程、深耕优质服务，行政运转精简高效，精细化管理尽显专业硬核实力</div>
-            </div>
-          </div>
-        </div>
+        
+          <!-- 评论列表（分页渲染，共 2 条） -->
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "DiscussionForumPosting", "name": "文章2读者评论 - 同创汽车城", "comment": [{"@type": "Comment", "author": {"@type": "Person", "name": "惜情"}, "dateCreated": "2026-07-07T17:29", "text": "规范流程，强化服务，同创汽车城共筑好口碑。"}, {"@type": "Comment", "author": {"@type": "Person", "name": "Flower"}, "dateCreated": "2026-07-07T16:44", "text": "同创汽车城严抓规范流程、深耕优质服务，行政运转精简高效，精细化管理尽显专业硬核实力"}]}</script>
+          <div class="comments-list" id="cmList-article-2"></div>
+          <div class="pagination" id="cmPager-article-2"></div>
       </div>
     </div>
   </section>
@@ -1360,50 +1370,11 @@
           <div class="comment-form-row"><textarea placeholder="写下您的想法..." maxlength="500"></textarea></div>
           <button class="comment-form-submit" onclick="alert('感谢您的留言！留言已提交，审核通过后将显示。')">📤 发布评论</button>
         </div>
-        <div class="comments-list">
-          <div class="comment-card">
-            <div class="comment-avatar avatar-blue">D</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">David</span><span class="comment-date">2026-07-01 17:49</span></div>
-              <div class="comment-content">祝福祖国繁荣昌盛！</div>
-            </div>
-          </div>
-          <div class="comment-card">
-            <div class="comment-avatar avatar-purple">惜</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-01 17:47</span></div>
-              <div class="comment-content">祝福祖国繁荣昌盛！</div>
-            </div>
-          </div>
-          <div class="comment-card">
-            <div class="comment-avatar avatar-purple">惜</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-01 17:47</span></div>
-              <div class="comment-content">祝福祖国繁荣昌盛！</div>
-            </div>
-          </div>
-          <div class="comment-card">
-            <div class="comment-avatar avatar-green">王</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">王有胜先生</span><span class="comment-date">2026-07-01 17:41</span></div>
-              <div class="comment-content">党日氛围浓厚，初心牢记，实干担当，活动扎实走心，党员凝心聚力守使命</div>
-            </div>
-          </div>
-          <div class="comment-card">
-            <div class="comment-avatar avatar-teal">F</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">Fllower</span><span class="comment-date">2026-07-01 17:38</span></div>
-              <div class="comment-content">恰逢七一建党日，贵司红色底子扎实，党建引领发展做得扎实，妥妥听党指挥、服务大局的优秀企业</div>
-            </div>
-          </div>
-          <div class="comment-card">
-            <div class="comment-avatar avatar-pink">F</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">Flower</span><span class="comment-date">2026-07-01 17:38</span></div>
-              <div class="comment-content">恰逢七一建党日，贵司红色底子扎实，党建引领发展做得扎实，妥妥听党指挥、服务大局的优秀企业</div>
-            </div>
-          </div>
-        </div>
+        
+          <!-- 评论列表（分页渲染，共 6 条） -->
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "DiscussionForumPosting", "name": "文章3读者评论 - 同创汽车城", "comment": [{"@type": "Comment", "author": {"@type": "Person", "name": "David"}, "dateCreated": "2026-07-01T17:49", "text": "祝福祖国繁荣昌盛！"}, {"@type": "Comment", "author": {"@type": "Person", "name": "惜情"}, "dateCreated": "2026-07-01T17:47", "text": "祝福祖国繁荣昌盛！"}, {"@type": "Comment", "author": {"@type": "Person", "name": "惜情"}, "dateCreated": "2026-07-01T17:47", "text": "祝福祖国繁荣昌盛！"}, {"@type": "Comment", "author": {"@type": "Person", "name": "王有胜先生"}, "dateCreated": "2026-07-01T17:41", "text": "党日氛围浓厚，初心牢记，实干担当，活动扎实走心，党员凝心聚力守使命"}, {"@type": "Comment", "author": {"@type": "Person", "name": "Fllower"}, "dateCreated": "2026-07-01T17:38", "text": "恰逢七一建党日，贵司红色底子扎实，党建引领发展做得扎实，妥妥听党指挥、服务大局的优秀企业"}, {"@type": "Comment", "author": {"@type": "Person", "name": "Flower"}, "dateCreated": "2026-07-01T17:38", "text": "恰逢七一建党日，贵司红色底子扎实，党建引领发展做得扎实，妥妥听党指挥、服务大局的优秀企业"}]}</script>
+          <div class="comments-list" id="cmList-article-3"></div>
+          <div class="pagination" id="cmPager-article-3"></div>
       </div>
     </div>
   </section>
@@ -1475,29 +1446,11 @@
           <div class="comment-form-row"><textarea placeholder="写下您的想法..." maxlength="500"></textarea></div>
           <button class="comment-form-submit" onclick="alert('感谢您的留言！留言已提交，审核通过后将显示。')">📤 发布评论</button>
         </div>
-        <div class="comments-list">
-          <div class="comment-card">
-            <div class="comment-avatar avatar-purple">惜</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">惜情</span><span class="comment-date">2026-07-08 17:26</span></div>
-              <div class="comment-content">同创汽车城物业工程部用专业与贴心守护着园区的每一个角落。</div>
-            </div>
-          </div>
-          <div class="comment-card">
-            <div class="comment-avatar avatar-pink">F</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">Flower</span><span class="comment-date">2026-07-07 16:45</span></div>
-              <div class="comment-content">坚守岗位严守工作底线，精工细作贴心服务，同创汽车城物业工程部以专业匠心扛起服务重任</div>
-            </div>
-          </div>
-          <div class="comment-card">
-            <div class="comment-avatar avatar-orange">方</div>
-            <div class="comment-body">
-              <div class="comment-meta"><span class="comment-author-name">方先生</span><span class="comment-date">2026-07-01 17:14</span></div>
-              <div class="comment-content">车型很全。</div>
-            </div>
-          </div>
-        </div>
+        
+          <!-- 评论列表（分页渲染，共 3 条） -->
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "DiscussionForumPosting", "name": "文章4读者评论 - 同创汽车城", "comment": [{"@type": "Comment", "author": {"@type": "Person", "name": "惜情"}, "dateCreated": "2026-07-08T17:26", "text": "同创汽车城物业工程部用专业与贴心守护着园区的每一个角落。"}, {"@type": "Comment", "author": {"@type": "Person", "name": "Flower"}, "dateCreated": "2026-07-07T16:45", "text": "坚守岗位严守工作底线，精工细作贴心服务，同创汽车城物业工程部以专业匠心扛起服务重任"}, {"@type": "Comment", "author": {"@type": "Person", "name": "方先生"}, "dateCreated": "2026-07-01T17:14", "text": "车型很全。"}]}</script>
+          <div class="comments-list" id="cmList-article-4"></div>
+          <div class="pagination" id="cmPager-article-4"></div>
       </div>
     </div>
   </section>
@@ -1576,11 +1529,11 @@
           <div class="comment-form-row"><textarea placeholder="写下您的想法..." maxlength="500"></textarea></div>
           <button class="comment-form-submit" onclick="alert('感谢您的留言！留言已提交，审核通过后将显示。')">📤 发布评论</button>
         </div>
-        <div class="comments-list">
-          <div style="text-align:center;color:var(--gray-400);padding:30px 0;font-size:0.92rem;">
-            📝 暂无评论，快来发表第一条看法吧！
-          </div>
-        </div>
+        
+          <!-- 评论列表（分页渲染，共 0 条） -->
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "DiscussionForumPosting", "name": "文章5读者评论 - 同创汽车城", "comment": []}</script>
+          <div class="comments-list" id="cmList-article-5"></div>
+          <div class="pagination" id="cmPager-article-5"></div>
       </div>
     </div>
   </section>
@@ -1646,6 +1599,88 @@
 
   <button class="back-to-top" id="backToTop" aria-label="返回顶部">&#8593;</button>
   <script src="js/main.js"></script>
+
+  <!-- 评论分页渲染 -->
+  <script>
+  (function() {
+    var commentRenderers = {};
+    var POOL = ['avatar-gold','avatar-blue','avatar-green','avatar-red','avatar-purple','avatar-teal','avatar-orange','avatar-pink'];
+    function avatarClass(name) {
+      var h = 0;
+      for (var i = 0; i < name.length; i++) { h = (h * 31 + name.charCodeAt(i)) >>> 0; }
+      return POOL[h % POOL.length];
+    }
+    function esc(s) {
+      return String(s).replace(/[&<>"]/g, function(c){
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];
+      });
+    }
+    function cardHtml(d, useItemClass) {
+      var av = d.av || avatarClass(d.name);
+      var initial = d.initial || (d.name ? d.name.charAt(0) : '?');
+      if (useItemClass) {
+        return '<div class="guestbook-item"><div class="gb-avatar ' + av + '">' + esc(initial) +
+          '</div><div class="gb-body"><div class="gb-meta"><span class="gb-author">' + esc(d.name) +
+          '</span><span class="gb-date">' + esc(d.date) + '</span></div><div class="gb-text">' +
+          esc(d.text) + '</div></div></div>';
+      }
+      return '<div class="comment-card"><div class="comment-avatar ' + av + '">' + esc(initial) +
+        '</div><div class="comment-body"><div class="comment-meta"><span class="comment-author-name">' + esc(d.name) +
+        '</span><span class="comment-date">' + esc(d.date) + '</span></div><div class="comment-content">' +
+        esc(d.text) + '</div></div></div>';
+    }
+    function renderComments(listId, pagerId, data, perPage, useItemClass) {
+      var listEl = document.getElementById(listId);
+      var pagerEl = document.getElementById(pagerId);
+      if (!listEl) return;
+      var total = data.length;
+      var pages = Math.max(1, Math.ceil(total / perPage));
+      var current = 1;
+      function draw() {
+        var startI = (current - 1) * perPage;
+        var slice = data.slice(startI, startI + perPage);
+        if (slice.length === 0) {
+          listEl.innerHTML = '<div style="text-align:center;color:var(--gray-400);padding:30px 0;font-size:0.92rem;">📝 暂无评论，快来发表第一条看法吧！</div>';
+        } else {
+          listEl.innerHTML = slice.map(function(d){ return cardHtml(d, useItemClass); }).join('');
+        }
+        drawPager();
+      }
+      function drawPager() {
+        if (!pagerEl) return;
+        if (pages <= 1) { pagerEl.innerHTML = ''; return; }
+        var h = '';
+        h += '<button ' + (current === 1 ? 'disabled' : '') + ' onclick="gotoPage(\'' + listId + '\',' + (current - 1) + ')">上一页</button>';
+        for (var p = 1; p <= pages; p++) {
+          if (p === 1 || p === pages || Math.abs(p - current) <= 2) {
+            h += '<button class="' + (p === current ? 'active' : '') + '" onclick="gotoPage(\'' + listId + '\',' + p + ')">' + p + '</button>';
+          } else if (p === current - 3 || p === current + 3) {
+            h += '<span class="page-ellipsis">…</span>';
+          }
+        }
+        h += '<button ' + (current === pages ? 'disabled' : '') + ' onclick="gotoPage(\'' + listId + '\',' + (current + 1) + ')">下一页</button>';
+        h += '<span class="page-info">第 ' + current + ' / ' + pages + ' 页</span>';
+        pagerEl.innerHTML = h;
+      }
+      commentRenderers[listId] = function(p) {
+        current = Math.min(Math.max(1, p), pages);
+        draw();
+      };
+      draw();
+    }
+    window.gotoPage = function(id, p) { if (commentRenderers[id]) commentRenderers[id](p); };
+    var article1Data = [{"name": "惜情", "date": "2026-07-07 17:28", "text": "护航高考，同创汽车城与您同行！", "av": "avatar-purple", "initial": "惜"}, {"name": "Flower", "date": "2026-07-07 16:39", "text": "情系学子暖心护航高考，同创汽车城以大爱之举温润盛夏，尽显胸怀担当与人文温情", "av": "avatar-pink", "initial": "F"}, {"name": "惜情", "date": "2026-07-01 17:37", "text": "暖心，大爱无疆。", "av": "avatar-purple", "initial": "惜"}, {"name": "惜情", "date": "2026-07-01 17:37", "text": "暖心，大爱无疆。", "av": "avatar-purple", "initial": "惜"}];
+    var article2Data = [{"name": "惜情", "date": "2026-07-07 17:29", "text": "规范流程，强化服务，同创汽车城共筑好口碑。", "av": "avatar-purple", "initial": "惜"}, {"name": "Flower", "date": "2026-07-07 16:44", "text": "同创汽车城严抓规范流程、深耕优质服务，行政运转精简高效，精细化管理尽显专业硬核实力", "av": "avatar-pink", "initial": "F"}];
+    var article3Data = [{"name": "David", "date": "2026-07-01 17:49", "text": "祝福祖国繁荣昌盛！", "av": "avatar-blue", "initial": "D"}, {"name": "惜情", "date": "2026-07-01 17:47", "text": "祝福祖国繁荣昌盛！", "av": "avatar-purple", "initial": "惜"}, {"name": "惜情", "date": "2026-07-01 17:47", "text": "祝福祖国繁荣昌盛！", "av": "avatar-purple", "initial": "惜"}, {"name": "王有胜先生", "date": "2026-07-01 17:41", "text": "党日氛围浓厚，初心牢记，实干担当，活动扎实走心，党员凝心聚力守使命", "av": "avatar-green", "initial": "王"}, {"name": "Fllower", "date": "2026-07-01 17:38", "text": "恰逢七一建党日，贵司红色底子扎实，党建引领发展做得扎实，妥妥听党指挥、服务大局的优秀企业", "av": "avatar-teal", "initial": "F"}, {"name": "Flower", "date": "2026-07-01 17:38", "text": "恰逢七一建党日，贵司红色底子扎实，党建引领发展做得扎实，妥妥听党指挥、服务大局的优秀企业", "av": "avatar-pink", "initial": "F"}];
+    var article4Data = [{"name": "惜情", "date": "2026-07-08 17:26", "text": "同创汽车城物业工程部用专业与贴心守护着园区的每一个角落。", "av": "avatar-purple", "initial": "惜"}, {"name": "Flower", "date": "2026-07-07 16:45", "text": "坚守岗位严守工作底线，精工细作贴心服务，同创汽车城物业工程部以专业匠心扛起服务重任", "av": "avatar-pink", "initial": "F"}, {"name": "方先生", "date": "2026-07-01 17:14", "text": "车型很全。", "av": "avatar-orange", "initial": "方"}];
+    var article5Data = [];
+    renderComments('cmList-article-1','cmPager-article-1', article1Data, 20, false);
+    renderComments('cmList-article-2','cmPager-article-2', article2Data, 20, false);
+    renderComments('cmList-article-3','cmPager-article-3', article3Data, 20, false);
+    renderComments('cmList-article-4','cmPager-article-4', article4Data, 20, false);
+    renderComments('cmList-article-5','cmPager-article-5', article5Data, 20, false);
+  })();
+  </script>
   <script>
     // ===== 视图切换 =====
     const HASH_MAP = {
